@@ -18,6 +18,11 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parser: tseslint.parser, // 追記
+      parserOptions: {  // 追記
+        project: true,　 // 追記
+        tsconfigRootDir: import.meta.dirname　 // 追記
+      }
     },
   },
 ])
