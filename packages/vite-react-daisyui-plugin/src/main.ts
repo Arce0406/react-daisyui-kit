@@ -1,1 +1,0 @@
-export { _Sample } from "./components/_Sample";

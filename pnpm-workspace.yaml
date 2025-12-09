@@ -1,4 +1,4 @@
 # pnpm-workspace.yaml
 packages:
   - 'packages/*' # 您的組件庫
-  - 'demo'     # 您的 Next.js 測試應用程式
+  - 'websites/*' # 您的網站或應用程序
