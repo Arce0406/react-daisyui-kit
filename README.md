@@ -1,6 +1,6 @@
 # react-daisyui-kit
 
-一個基於 React、TypeScript、daisyUI 與 Tailwind CSS 的元件庫 monorepo，支援現代前端開發、測試與 npm 發佈。
+一個基於 React、TypeScript、daisyUI 與 Tailwind CSS 的元件庫 monorepo。
 
 ## 專案結構
 
