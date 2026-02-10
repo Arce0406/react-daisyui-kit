@@ -1,0 +1,328 @@
+import { Form } from '@/components/form';
+import Input from '@/components/form/controls/Input';
+import NumberInput from '@/components/NumberInput';
+
+// 簡化的動態表單範例 - 僅使用字符串路徑
+export function SimpleDynamicForm() {
+  const handleFinish = (values: any) => {
+    console.log('表單提交:', values);
+  };
+
+  const handleValuesChange = (changedValues: any, allValues: any) => {
+    console.log('值變更:', changedValues, allValues);
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-6">動態使用者表單</h2>
+
+      <Form
+        onFinish={handleFinish}
+        onValuesChange={handleValuesChange}
+        initialValues={{
+          description: '測試餐點列表',
+          menuItems: [{ name: '牛', price: 1500 }]
+        }}
+      >
+        <Form.Item label="餐點列表說明" name="description">
+          <Input placeholder="請輸入餐點列表說明" />
+        </Form.Item>
+        <Form.List name='menuItems'>
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name }, index) => (
+                <Form.List.Item
+                  key={key}
+                  className=""
+                >
+                  <Form.Item
+                    name={`menuItems.${name}.name`}
+                    required
+                    rules={[{ required: true, message: '請輸入餐點名稱' }]}
+                    isListItem={true}
+                  >
+                    <Input placeholder="請輸入餐點名稱" />
+                  </Form.Item>
+
+                  <Form.Item
+                    name={`menuItems.${name}.price`}
+                    rules={[
+                      { required: true, message: '請輸入價格' },
+                    ]}
+                    isListItem={true}
+                  >
+                    <NumberInput min={1} max={150} placeholder="價格" />
+                  </Form.Item>
+                  <button
+                    type="button"
+                    className="btn btn-error"
+                    onClick={() => remove(name)}
+                    disabled={fields.length === 1}
+                  >
+                    刪除
+                  </button>
+                </Form.List.Item>
+              ))}
+
+              <button
+                type="button"
+                className="btn btn-secondary btn-outline w-full"
+                onClick={() => add({ name: '', price: undefined })}
+              >
+                + 新增餐點
+              </button>
+            </>
+          )}
+        </Form.List>
+        <Form.Button.Container>
+          <Form.Button type="submit" className="btn btn-primary w-full">
+            提交表單
+          </Form.Button>
+        </Form.Button.Container>
+      </Form>
+    </div>
+  );
+}
+
+// 購物車動態表單範例
+export function ShoppingCartForm() {
+  const handleFinish = (values: any) => {
+    const total = values.items?.reduce((sum: number, item: any) => {
+      return sum + (item.price * item.quantity || 0);
+    }, 0) || 0;
+
+    console.log('購物車提交:', { ...values, total });
+    alert(`訂單總金額: $${total}`);
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-6">購物車表單</h2>
+
+      <Form
+        onFinish={handleFinish}
+        onValuesChange={(changed, all) => {
+          // 自動計算總金額
+          if (changed.items || Object.keys(changed).some(key => key.startsWith('items.'))) {
+            const total = (all.items as Array<any> || [])?.reduce((sum: number, item: any) => {
+              return sum + (item.price * item.quantity || 0);
+            }, 0) || 0;
+            console.log('目前總金額:', total);
+          }
+        }}
+        initialValues={{
+          customerName: '',
+          items: [
+            { name: '商品A', price: 100, quantity: 1 }
+          ]
+        }}
+      >
+        <Form.Item
+          name="customerName"
+          label="客戶姓名"
+          required
+          rules={[{ required: true, message: '請輸入客戶姓名' }]}
+        >
+          <Input placeholder="請輸入客戶姓名" />
+        </Form.Item>
+
+        <div className="divider">商品列表</div>
+
+        <Form.List name="items">
+          {(fields, { add, remove }) => (
+            <>
+              <div className="space-y-4">
+                {fields.map(({ key, name }, index) => (
+                  <div key={key} className="bg-base-50 border border-base-300 rounded-lg p-4">
+                    <div className="flex justify-between items-center mb-3">
+                      <h4 className="font-medium">商品 {index + 1}</h4>
+                      <button
+                        type="button"
+                        className="btn btn-xs btn-error"
+                        onClick={() => remove(name)}
+                        disabled={fields.length === 1}
+                      >
+                        移除
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                      <div className="md:col-span-2">
+                        <Form.Item
+                          name={`items.${name}.name`}
+                          label="商品名稱"
+                          required
+                          rules={[{ required: true, message: '請輸入商品名稱' }]}
+                        >
+                          <Input placeholder="請輸入商品名稱" />
+                        </Form.Item>
+                      </div>
+
+                      <Form.Item
+                        name={`items.${name}.price`}
+                        label="單價"
+                        required
+                        rules={[
+                          { required: true, message: '請輸入單價' },
+                          { min: 0.01, message: '單價必須大於0' }
+                        ]}
+                      >
+                        <NumberInput min={0.01} step={0.01} precision={2} />
+                      </Form.Item>
+
+                      <Form.Item
+                        name={`items.${name}.quantity`}
+                        label="數量"
+                        required
+                        rules={[
+                          { required: true, message: '請輸入數量' },
+                          { min: 1, message: '數量必須大於0' }
+                        ]}
+                      >
+                        <NumberInput min={1} precision={0} />
+                      </Form.Item>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2 mt-4">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-outline flex-1"
+                  onClick={() => add({ name: '', price: 0, quantity: 1 })}
+                >
+                  + 新增商品
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => add({ name: '熱銷商品', price: 299, quantity: 1 }, 0)}
+                >
+                  插入熱銷商品
+                </button>
+              </div>
+            </>
+          )}
+        </Form.List>
+
+        <div className="mt-6 flex gap-4">
+          <button type="submit" className="btn btn-primary">
+            確認訂單
+          </button>
+        </div>
+      </Form>
+    </div>
+  );
+}
+
+// 標籤管理動態表單
+export function TagManagerForm() {
+  const handleFinish = (values: any) => {
+    console.log('標籤管理提交:', values);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-6">標籤管理</h2>
+
+      <Form
+        onFinish={handleFinish}
+        initialValues={{
+          title: '',
+          tags: ['前端', '開發']
+        }}
+      >
+        <Form.Item
+          name="title"
+          label="標題"
+          required
+          rules={[{ required: true, message: '請輸入標題' }]}
+        >
+          <Input placeholder="請輸入標題" />
+        </Form.Item>
+
+        <div className="divider">標籤列表</div>
+
+        <Form.List name="tags">
+          {(fields, { add, remove, move }) => (
+            <>
+              <div className="space-y-3">
+                {fields.map(({ key, name }, index) => (
+                  <div key={key} className="flex items-center gap-3 p-3 bg-base-100 rounded-lg border">
+                    <div className="flex-1">
+                      <Form.Item
+                        name={`tags.${name}`}
+                        required
+                        rules={[{ required: true, message: '請輸入標籤' }]}
+                      >
+                        <Input placeholder="請輸入標籤" size="sm" />
+                      </Form.Item>
+                    </div>
+
+                    <div className="flex gap-1">
+                      {index > 0 && (
+                        <button
+                          type="button"
+                          className="btn btn-xs btn-ghost"
+                          onClick={() => move(index, index - 1)}
+                          title="上移"
+                        >
+                          ↑
+                        </button>
+                      )}
+                      {index < fields.length - 1 && (
+                        <button
+                          type="button"
+                          className="btn btn-xs btn-ghost"
+                          onClick={() => move(index, index + 1)}
+                          title="下移"
+                        >
+                          ↓
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="btn btn-xs btn-error"
+                        onClick={() => remove(name)}
+                        disabled={fields.length === 1}
+                        title="刪除"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2 mt-4">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-outline btn-sm flex-1"
+                  onClick={() => add('')}
+                >
+                  + 新增標籤
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => add('React', 0)}
+                >
+                  插入 React
+                </button>
+              </div>
+            </>
+          )}
+        </Form.List>
+
+        <div className="mt-6">
+          <button type="submit" className="btn btn-primary w-full">
+            保存設定
+          </button>
+        </div>
+      </Form>
+    </div>
+  );
+}

@@ -1,0 +1,182 @@
+/* Form 組件的基礎樣式 */
+
+:root {
+  --border-b3: #cccccc;
+}
+
+.Form {
+  width: 100%;
+}
+
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.form-list-item {
+  margin-bottom: 0;
+}
+
+.form-item-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.form-item-label-text {
+  color: color-mix(in oklab, currentcolor 60%, transparent)
+}
+
+.form-item-required {
+  color: var(--text-red-500);
+}
+
+.form-item-control {
+  width: 100%;
+}
+
+.form-item-error-message {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.form-item-help {
+  color: var(--fallback-bc, oklch(var(--bc) / 0.7));
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.form-item-error .form-item-control input,
+.form-item-error .form-item-control textarea,
+.form-item-error .form-item-control select {
+  border-color: var(--text-red-500);
+}
+
+/* 針對 DaisyUI 的特殊樣式調整 */
+.form-item-error .input {
+  border-color: var(--text-red-500);
+}
+
+.form-item-error .textarea {
+  border-color: var(--text-red-500);
+}
+
+.form-item-error .select {
+  border-color: var(--text-red-500);
+}
+
+/* 表單項目間距調整 */
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 行內表單項目 */
+.form-item-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-item-inline .form-item-label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.form-item-inline .form-item-control {
+  flex: 1;
+}
+
+/* 密集型表單佈局 */
+.form-dense .form-item {
+  margin-bottom: 0.5rem;
+}
+
+/* 響應式表單佈局 */
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.form-grid-cols-2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .form-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.form-grid-cols-3 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .form-grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.form-grid-cols-4 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .form-grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 表單操作按鈕區域 */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-white-50);
+  margin-top: 1.5rem;
+}
+
+.form-actions-center {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-white-50);
+  margin-top: 1.5rem;
+}
+
+.form-actions-left {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-white-50);
+  margin-top: 1.5rem;
+}
+
+.form-actions-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-white-50);
+  margin-top: 1.5rem;
+}

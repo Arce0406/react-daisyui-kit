@@ -15,6 +15,7 @@ export default defineConfig({
         "react-dom",
         "react/jsx-runtime",
         "tailwindcss",
+        "react-icons",
       ],
       output: {
         globals: {
