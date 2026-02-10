@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@featherstudio/react-daisyui-kit": ["../../packages/react-daisyui-kit/src"]
     }
   },
   "include": [
