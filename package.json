@@ -1,7 +1,7 @@
 {
   "name": "react-daisyui-kit",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "Monorepo for react-daisyui-kit",
   "scripts": {
     "check-types": "tsc --noEmit",
