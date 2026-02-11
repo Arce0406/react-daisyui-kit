@@ -69,6 +69,30 @@ export default function InputPage() {
         </div>
       </section>
 
+      {/* Usage */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
+        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
+          <pre className="text-gray-100 font-mono text-sm">
+{`import { Input } from '@featherstudio/react-daisyui-kit';
+import { useState } from 'react';
+
+export default function App() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Input
+      type="text"
+      placeholder="Enter your name..."
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}`}
+          </pre>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
@@ -97,30 +121,6 @@ export default function InputPage() {
               Fully styleable with Tailwind CSS classes.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Usage */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
-        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
-          <pre className="text-gray-100 font-mono text-sm">
-{`import { Input } from '@featherstudio/react-daisyui-kit';
-import { useState } from 'react';
-
-export default function App() {
-  const [value, setValue] = useState('');
-
-  return (
-    <Input
-      type="text"
-      placeholder="Enter your name..."
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-}`}
-          </pre>
         </div>
       </section>
 

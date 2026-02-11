@@ -40,9 +40,9 @@ export default function FormPage() {
         </p>
       </section>
 
-      {/* Interactive Demo */}
+      {/* Live Preview */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Interactive Demo</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="max-w-2xl bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
           <form onSubmit={(e) => { e.preventDefault(); handleFormSubmit(); }} className="space-y-4">
             {/* Text Input */}
@@ -206,52 +206,9 @@ export default function FormPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Ant Design API</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Familiar API design modeled after Ant Design Form.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Built-in Validation</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Comprehensive validation rules with custom validators.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">TypeScript Support</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Full type safety for form values and validation.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">State Management</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Automatic form state tracking and updates.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Flexible Controls</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Works with Input, Select, Checkbox, RadioGroup, etc.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Dynamic Forms</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Support for dynamic form fields and arrays.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Usage */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage Example</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
 {`import { Form, Input, Select, Checkbox, RadioGroup } 
@@ -351,9 +308,52 @@ export default function MyForm() {
         </div>
       </section>
 
-      {/* Validation Rules */}
+      {/* Features */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Validation Rules</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Ant Design API</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Familiar API design modeled after Ant Design Form.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Built-in Validation</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Comprehensive validation rules with custom validators.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">TypeScript Support</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Full type safety for form values and validation.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">State Management</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Automatic form state tracking and updates.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Flexible Controls</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Works with Input, Select, Checkbox, RadioGroup, etc.
+            </p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Dynamic Forms</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              Support for dynamic form fields and arrays.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Props */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Props</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

@@ -43,6 +43,27 @@ export default function TabsPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
+        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
+          <pre className="text-gray-100 font-mono text-sm">
+{`import { Tabs } from '@featherstudio/react-daisyui-kit';
+import { useState } from 'react';
+
+export default function App() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <Tabs activeTab={active} onChange={setActive}>
+      <Tabs.Tab label="Tab 1">Content 1</Tabs.Tab>
+      <Tabs.Tab label="Tab 2">Content 2</Tabs.Tab>
+    </Tabs>
+  );
+}`}
+          </pre>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -69,27 +90,6 @@ export default function TabsPage() {
               Configure appearance and behavior.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
-        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
-          <pre className="text-gray-100 font-mono text-sm">
-{`import { Tabs } from '@featherstudio/react-daisyui-kit';
-import { useState } from 'react';
-
-export default function App() {
-  const [active, setActive] = useState(0);
-
-  return (
-    <Tabs activeTab={active} onChange={setActive}>
-      <Tabs.Tab label="Tab 1">Content 1</Tabs.Tab>
-      <Tabs.Tab label="Tab 2">Content 2</Tabs.Tab>
-    </Tabs>
-  );
-}`}
-          </pre>
         </div>
       </section>
 

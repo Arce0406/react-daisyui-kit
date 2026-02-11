@@ -42,6 +42,30 @@ export default function DropdownsPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
+        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
+          <pre className="text-gray-100 font-mono text-sm">
+{`import { Dropdown } from '@featherstudio/react-daisyui-kit';
+import { useState } from 'react';
+
+export default function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dropdown open={open} onOpenChange={setOpen} position="bottom">
+      <Dropdown.Trigger>Menu</Dropdown.Trigger>
+      <Dropdown.Content>
+        <a href="#">Option 1</a>
+        <a href="#">Option 2</a>
+      </Dropdown.Content>
+    </Dropdown>
+  );
+}`}
+          </pre>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -68,30 +92,6 @@ export default function DropdownsPage() {
               Support any content type in dropdown.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
-        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
-          <pre className="text-gray-100 font-mono text-sm">
-{`import { Dropdown } from '@featherstudio/react-daisyui-kit';
-import { useState } from 'react';
-
-export default function App() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Dropdown open={open} onOpenChange={setOpen} position="bottom">
-      <Dropdown.Trigger>Menu</Dropdown.Trigger>
-      <Dropdown.Content>
-        <a href="#">Option 1</a>
-        <a href="#">Option 2</a>
-      </Dropdown.Content>
-    </Dropdown>
-  );
-}`}
-          </pre>
         </div>
       </section>
 

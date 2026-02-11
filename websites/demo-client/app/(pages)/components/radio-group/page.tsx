@@ -55,29 +55,6 @@ export default function RadioGroupPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Single Selection</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">Only one option can be selected at a time.</p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Easy State Management</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">Simple onChange callback handling.</p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Accessible</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">Keyboard navigation and semantic HTML.</p>
-          </div>
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Flexible Layout</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">Vertical or horizontal arrangement.</p>
-          </div>
-        </div>
-      </section>
-
       {/* Usage */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
@@ -101,6 +78,29 @@ export default function App() {
   );
 }`}
           </pre>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Single Selection</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Only one option can be selected at a time.</p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Easy State Management</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Simple onChange callback handling.</p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Accessible</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Keyboard navigation and semantic HTML.</p>
+          </div>
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Flexible Layout</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Vertical or horizontal arrangement.</p>
+          </div>
         </div>
       </section>
 
