@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React DaisyUI Kit - Demo Site
 
-## Getting Started
+Component showcase and interactive examples for [@featherstudio/react-daisyui-kit](https://www.npmjs.com/package/@featherstudio/react-daisyui-kit).
 
-First, run the development server:
+## Online Demo
+
+🎯 **[View live demo](https://arce0406.github.io/react-daisyui-kit/)**
+
+## Local Development
+
+From the monorepo root:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm --filter demo-client dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) to see the component showcase.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Building for GitHub Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This demo is statically built and deployed to GitHub Pages:
 
-## Learn More
+```bash
+pnpm --filter demo-client build
+# Output: websites/demo-client/out/
+```
 
-To learn more about Next.js, take a look at the following resources:
+Deployment is automated via GitHub Actions on every push to `main`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features Showcased
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 20+ React components with live examples
+- Theme switcher (light/dark mode)
+- Component API documentation
+- Installation and usage instructions
 
-## Deploy on Vercel
+## Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Next.js 16 (static export)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- DaisyUI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For more info, see the [main repository](https://github.com/Arce0406/react-daisyui-kit).

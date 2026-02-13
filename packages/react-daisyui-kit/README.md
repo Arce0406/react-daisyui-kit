@@ -115,8 +115,8 @@ notification.success({ message: "Done" });
 
 ## Project links
 
-- Demo site: /websites/demo-client
-- Source: https://github.com/Arce0406/react-daisyui-kit
+- **Demo site**: https://arce0406.github.io/react-daisyui-kit/
+- **Source**: https://github.com/Arce0406/react-daisyui-kit
 
 ## License
 

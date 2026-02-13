@@ -22,6 +22,10 @@ react-daisyui-kit/
 - Tailwind CSS + daisyUI
 - Vite (library mode) 打包
 
+## 線上示範
+
+👉 **[查看 Demo](https://arce0406.github.io/react-daisyui-kit/)**
+
 ## 開發流程
 
 1. 安裝依賴
