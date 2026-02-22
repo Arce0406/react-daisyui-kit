@@ -7,7 +7,7 @@ import FormList from './FormList';
 import { pathToString, setNestedValue, getNestedValue } from './utils';
 import './Form.css';
 import FormButton from './FormButton';
-import { cn } from 'src/utils';
+import { cn } from "../../utils";
 
 // 主要表單組件
 function Form(

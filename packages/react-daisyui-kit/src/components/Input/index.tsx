@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { cn } from "src/utils";
+import { cn } from "../../utils";
 
 export interface InputWithDataListProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
