@@ -7,6 +7,7 @@ import FormList from './FormList';
 import { pathToString, setNestedValue, getNestedValue } from './utils';
 import './Form.css';
 import FormButton from './FormButton';
+import { cn } from 'src/utils';
 
 // 主要表單組件
 function Form(
@@ -247,7 +248,7 @@ function Form(
       <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className={`Form ${className}`}
+        className={cn('form space-y-4', className)}
         noValidate
       >
         {children}

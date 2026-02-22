@@ -4,7 +4,7 @@
   --border-b3: #cccccc;
 }
 
-.Form {
+.form {
   width: 100%;
 }
 
@@ -14,17 +14,6 @@
 
 .form-list-item {
   margin-bottom: 0;
-}
-
-.form-item-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.form-item-label-text {
-  color: color-mix(in oklab, currentcolor 60%, transparent)
 }
 
 .form-item-required {
