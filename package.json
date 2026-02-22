@@ -7,7 +7,7 @@
     "check-types": "tsc --noEmit",
     "build:lib": "pnpm --filter @featherstudio/react-daisyui-kit run build",
     "dev": "pnpm --filter demo-client run dev",
-    "publish": "pnpm run build:lib && cd packages/react-daisyui-kit && pnpm publish"
+    "pub": "pnpm run build:lib && cd packages/react-daisyui-kit && pnpm publish"
   },
   "keywords": [],
   "author": "",
