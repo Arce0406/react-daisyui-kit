@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+import { cn } from "src/utils";
 
 export interface InputWithDataListProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,12 +10,12 @@ export interface InputWithDataListProps
 }
 
 function Input(
-  { datalist, ...props }: InputWithDataListProps,
+  { datalist, className, ...props }: InputWithDataListProps,
   ref: React.Ref<HTMLInputElement>
 ) {
   return (
     <>
-      <input ref={ref} list={datalist?.listId} {...props} />
+      <input ref={ref} list={datalist?.listId} className={cn('input w-full', className)} {...props} />
       {datalist && datalist.suggestions?.length > 0 && (
         <datalist id={datalist.listId}>
           {(datalist.suggestions || []).map((item, index) => (
