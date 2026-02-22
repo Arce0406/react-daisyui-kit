@@ -1,6 +1,6 @@
 // Form 組件庫統一入口
 export { default as FormItem } from './FormItem';
-export { useFormContext, FormContext } from '@/contexts/FormContext';
+export { useFormContext, FormContext } from '../../contexts/FormContext';
 export { pathToString, getNestedValue, setNestedValue } from './utils';
 
 export type {
@@ -25,12 +25,12 @@ export {
 export {
   default as Checkbox,
   type CheckboxProps
-} from '@/components/Checkbox';
+} from '../Checkbox';
 export {
   default as RadioGroup,
   type RadioGroupProps,
   type RadioOption
-} from '@/components/RadioGroup';
+} from '../RadioGroup';
 export {
   default as FormList,
   type FormListProps as FormListProps,

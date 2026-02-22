@@ -1,5 +1,5 @@
 "use client";
-import { cn } from '@/utils';
+import { cn } from '../../utils';
 import React, { useState, useMemo } from 'react';
 import {
   FaSearch,

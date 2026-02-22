@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useCallback, useRef, FormEvent, useEffect, useMemo, useImperativeHandle } from 'react';
 import type { FormProps, FormValues, FormErrors, FormItemInstance, FormRef, FormValidateResult } from './types';
-import { FormContext, useFormContext } from '@/contexts/FormContext';
+import { FormContext, useFormContext } from '../../contexts/FormContext';
 import FormItem from './FormItem';
 import FormList from './FormList';
 import { pathToString, setNestedValue, getNestedValue } from './utils';

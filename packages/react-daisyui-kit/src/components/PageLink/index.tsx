@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { usePageLinkContext } from '@/contexts/PageLinkContext';
+import { usePageLinkContext } from '../../contexts/PageLinkContext';
 
 function Hint({ useLinkStatus }: { useLinkStatus?: () => { pending: boolean } }) {
     const pending = useLinkStatus ? useLinkStatus().pending : false;

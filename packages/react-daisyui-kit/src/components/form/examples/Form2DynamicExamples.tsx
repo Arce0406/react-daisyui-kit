@@ -1,8 +1,8 @@
 "use client";
-import { Form } from '@/components/form';
-import Input from '@/components/form/controls/Input';
-import NumberInput from '@/components/NumberInput';
-import Select from '@/components/form/controls/Select';
+import { Form } from '../';
+import Input from '../controls/Input';
+import NumberInput from '../../NumberInput';
+import Select from '../controls/Select';
 
 // 基本動態表單範例
 export function BasicDynamicForm() {

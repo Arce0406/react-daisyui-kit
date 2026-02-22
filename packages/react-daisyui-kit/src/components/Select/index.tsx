@@ -1,5 +1,5 @@
 'use client';
-import { cn } from "@/utils";
+import { cn } from "../../utils";
 import { useCallback, useMemo } from "react";
 import { FaTimes } from "react-icons/fa";
 import './index.css';

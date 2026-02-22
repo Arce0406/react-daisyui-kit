@@ -1,9 +1,9 @@
 "use client";
 
-import { breakpoints } from "@/app-constants";
-import { cn } from '@/utils';
+import { breakpoints } from "../../app-constants";
+import { cn } from '../../utils';
 import React, { useMemo } from "react";
-import { LoadingSkeleton } from "@/components/Loading";
+import { LoadingSkeleton } from "../Loading";
 
 export interface FieldsetItem {
     label: string;

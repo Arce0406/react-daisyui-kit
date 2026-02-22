@@ -1,5 +1,5 @@
 "use client";
-import { cn } from '@/utils';
+import { cn } from '../../utils';
 import { useState, ReactNode, Children, isValidElement, cloneElement, useMemo, useEffect, useCallback } from 'react';
 
 export interface TabItem {

@@ -1,4 +1,4 @@
-import UiInput, { InputWithDataListProps } from "@/components/Input";
+import UiInput, { InputWithDataListProps } from "../../Input";
 import { forwardRef } from "react";
 import { RxCross2 } from "react-icons/rx";
 

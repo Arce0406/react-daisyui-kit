@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import type { FormItemProps, FormItemInstance, ValidationRule } from './types';
-import { useFormContext } from '@/contexts/FormContext';
+import { useFormContext } from '../../contexts/FormContext';
 import { pathToString, getNestedValue } from './utils';
-import { cn } from '@/utils';
+import { cn } from '../../utils';
 
 // 表單項目組件
 export default function FormItem({

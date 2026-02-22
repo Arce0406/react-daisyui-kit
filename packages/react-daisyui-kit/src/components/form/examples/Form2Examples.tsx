@@ -6,13 +6,13 @@
  */
 
 import React from 'react';
-import { Form } from '@/components/form';
-import Input from '@/components/Input';
-import Select from '@/components/Select';
-import NumberInput from '@/components/NumberInput';
-import TextArea from '@/components/TextArea';
-import Checkbox from '@/components/Checkbox';
-import RadioGroup from '@/components/RadioGroup';
+import { Form } from '../';
+import Input from '../../Input';
+import Select from '../../Select';
+import NumberInput from '../../NumberInput';
+import TextArea from '../../TextArea';
+import Checkbox from '../../Checkbox';
+import RadioGroup from '../../RadioGroup';
 
 // 基本使用示例
 export function BasicFormExample() {

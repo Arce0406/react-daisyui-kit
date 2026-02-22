@@ -1,5 +1,5 @@
 "use client";
-import { Breakpoint } from "@/app-constants";
+import { Breakpoint } from "../../app-constants";
 
 interface LoadingOverlayProps {
     size?: Breakpoint;

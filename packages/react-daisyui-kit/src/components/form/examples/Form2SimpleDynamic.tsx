@@ -1,6 +1,6 @@
-import { Form } from '@/components/form';
-import Input from '@/components/form/controls/Input';
-import NumberInput from '@/components/NumberInput';
+import { Form } from '../';
+import Input from '../controls/Input';
+import NumberInput from '../../NumberInput';
 
 // 簡化的動態表單範例 - 僅使用字符串路徑
 export function SimpleDynamicForm() {

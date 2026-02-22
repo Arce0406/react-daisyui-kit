@@ -1,6 +1,6 @@
 // DataTable 總結欄使用範例
 
-import DataTable, { Column, SummaryConfig } from '@/components/DataTable';
+import DataTable, { Column, SummaryConfig } from './'
 
 // 範例資料類型
 interface OrderData extends Record<string, unknown> {

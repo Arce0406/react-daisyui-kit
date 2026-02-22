@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Notification, useNotificationAPI } from '@/components/Notification';
+import { Notification, useNotificationAPI } from './'
 
 /**
  * Notification 元件使用範例
@@ -141,7 +141,7 @@ export default function NotificationExample() {
         <div className="bg-base-200 p-4 rounded-lg">
           <h3 className="font-medium mb-2">1. 在 layout.tsx 中設定</h3>
           <pre className="text-sm bg-base-300 p-2 rounded">
-{`import { NotificationProvider, NotificationContainer } from '@/components/Notification';
+{`import { NotificationProvider, NotificationContainer } from './';
 
 export default function RootLayout({ children }) {
   return (
@@ -159,7 +159,7 @@ export default function RootLayout({ children }) {
           
           <h3 className="font-medium mb-2 mt-4">2. 在任何元件中使用</h3>
           <pre className="text-sm bg-base-300 p-2 rounded">
-{`import { notification } from '@/components/Notification';
+{`import { notification } from './'
 
 // 簡單用法
 notification.success({ message: '操作成功！' });

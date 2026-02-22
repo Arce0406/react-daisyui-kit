@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from '@/utils';
+import { cn } from '../../utils';
 import React, { useCallback, useImperativeHandle, useMemo } from 'react'
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
