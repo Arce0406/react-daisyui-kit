@@ -18,6 +18,7 @@ export default function FormItem({
     valuePropName = 'value',
     hidden = false,
     isListItem = false,
+    labelProps,
 }: FormItemProps) {
     const {
         registerField,
@@ -101,11 +102,11 @@ export default function FormItem({
             setFieldValue(name, newValue)
         },
         getError: () => {
-            if(!name) return localError;
+            if (!name) return localError;
             return errors[pathToString(name)] ?? localError;
         },
         setError: (error: string | string[] | undefined) => {
-            if(!name) return;
+            if (!name) return;
             setLocalError(error);
             setFieldError(name, error); // <--- 新增這行
         },
@@ -243,8 +244,11 @@ export default function FormItem({
             )}
         >
             {label && (
-                <label className="form-item-label">
-                    <span className="form-item-label-text">{label}</span>
+                <label
+                    className={cn("block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1", labelProps?.className)}
+                    {...labelProps}
+                >
+                    {label}
                     {isRequired && <span className="text-red-500"> *</span>}
                 </label>
             )}

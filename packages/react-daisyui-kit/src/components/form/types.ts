@@ -80,4 +80,5 @@ export interface FormItemProps {
   valuePropName?: string;
   hidden?: boolean;
   isListItem?: boolean;
+  labelProps?: React.LabelHTMLAttributes<HTMLLabelElement>;
 }
