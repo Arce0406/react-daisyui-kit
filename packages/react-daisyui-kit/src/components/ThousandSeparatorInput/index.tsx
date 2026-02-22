@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 
 // 協助移除千分位符號、貨幣符號等，只留下數字和小數點

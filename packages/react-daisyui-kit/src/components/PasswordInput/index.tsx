@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useState } from "react";
 
 // 密碼輸入框組件

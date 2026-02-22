@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from '@/utils';
 import React, { useCallback, useImperativeHandle, useMemo } from 'react'
 
