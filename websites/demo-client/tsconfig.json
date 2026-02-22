@@ -20,7 +20,12 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@featherstudio/react-daisyui-kit": ["../../packages/react-daisyui-kit/src"]
+      "@featherstudio/react-daisyui-kit": ["../../packages/react-daisyui-kit/src"],
+      "@/components/*": ["../../packages/react-daisyui-kit/src/components/*"],
+      "@/contexts/*": ["../../packages/react-daisyui-kit/src/contexts/*"],
+      "@/utils": ["../../packages/react-daisyui-kit/src/utils"],
+      "@/app-constants": ["../../packages/react-daisyui-kit/src/app-constants"],
+      "@/hooks/*": ["../../packages/react-daisyui-kit/src/hooks/*"]
     }
   },
   "include": [
