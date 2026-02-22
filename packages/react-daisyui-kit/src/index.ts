@@ -1,7 +1,6 @@
 // ============================================
 // Basic Components
 // ============================================
-export { default as NewComponent } from './components/NewComponent';
 export { default as Input, type InputWithDataListProps } from './components/Input';
 export { default as TextArea, type TextAreaProps } from './components/TextArea';
 export { default as NumberInput, type NumberInputProps } from './components/NumberInput';
@@ -15,8 +14,7 @@ export { default as ThousandSeparatorInput, type ThousandSeparatorInputProps } f
 // ============================================
 // Layout Components
 // ============================================
-export { default as Modal } from './components/Modal';
-export { ModalTriggerButton } from './components/Modal';
+export { default as Modal, type ModalRef, ModalTriggerButton } from './components/Modal';
 export { default as Fieldset, type FieldsetProps, type FieldsetItem, type FieldsetColSpan, type FieldsetDirection } from './components/Fieldset';
 export { default as Dropdowns, type DropdownsProps, type DropdownItem } from './components/Dropdowns';
 export { default as Tabs, type TabsProps, type TabItem } from './components/Tabs';

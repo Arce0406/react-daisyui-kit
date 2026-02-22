@@ -35,8 +35,19 @@ export default function ThemesPage() {
   themes: all;
   logs: true;
 }
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));`}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Include component library classes */
+@source "./**/*.{ts,tsx}";
+@source "../node_modules/@featherstudio/react-daisyui-kit/**/*.{js,ts,tsx}";`}
                         </pre>
+                    </div>
+                    <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800 p-4 mt-4">
+                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Important:</strong> The two <code className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">@source</code> directives tell Tailwind to scan both the app and the component library for CSS classes. 
+                            Without them, styles used only by components but not directly in your app may be purged during the build, 
+                            causing styling issues or broken layouts. Always include both lines when using the component library.
+                        </p>
                     </div>
                 </div>
 
