@@ -18,7 +18,7 @@ export default function InputExample() {
             {/* 範例 C：帶有 Icon 的 daisyUI 樣式 (你提到的新構造) */}
             <Input.Field>
                 <Input.Label>搜尋</Input.Label>
-                <Input.Group color="secondary">
+                <Input.Group>
                     <FaSearch />
                     <Input placeholder="Search..." />
                     <kbd className="kbd kbd-sm">⌘K</kbd>

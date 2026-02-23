@@ -54,7 +54,7 @@ export default function InputPage() {
       {/* Basic Usage */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">基本用法</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input
@@ -69,7 +69,7 @@ export default function InputPage() {
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import Input from '@featherstudio/react-daisyui-kit';
+            {`import Input from '@featherstudio/react-daisyui-kit';
 import { useState } from 'react';
 
 const [value, setValue] = useState('');
@@ -87,7 +87,7 @@ const [value, setValue] = useState('');
       {/* With Label and Field */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">使用 Field 和 Label</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input.Field>
@@ -105,7 +105,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`<Input.Field>
+            {`<Input.Field>
   <Input.Label>電子郵件</Input.Label>
   <Input
     type="email"
@@ -122,7 +122,7 @@ const [value, setValue] = useState('');
       {/* Allow Clear */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">清除按鈕</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input
@@ -136,7 +136,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`<Input
+            {`<Input
   allowClear
   placeholder="輸入後會顯示清除按鈕"
   value={value}
@@ -149,7 +149,7 @@ const [value, setValue] = useState('');
       {/* Colors */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">顏色變體</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input color="primary" placeholder="Primary" value={colorValue} onChange={(v) => setColorValue(v as string)} />
@@ -163,7 +163,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`<Input color="primary" placeholder="Primary" />
+            {`<Input color="primary" placeholder="Primary" />
 <Input color="secondary" placeholder="Secondary" />
 <Input color="accent" placeholder="Accent" />
 <Input color="success" placeholder="Success" />
@@ -176,7 +176,7 @@ const [value, setValue] = useState('');
       {/* Sizes */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">尺寸</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input size="xs" placeholder="Extra Small" />
@@ -188,7 +188,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`<Input size="xs" placeholder="Extra Small" />
+            {`<Input size="xs" placeholder="Extra Small" />
 <Input size="sm" placeholder="Small" />
 <Input size="md" placeholder="Medium" />
 <Input size="lg" placeholder="Large" />`}
@@ -199,21 +199,21 @@ const [value, setValue] = useState('');
       {/* Input Group with Icons */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">帶圖標的輸入框 (Input.Group)</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input.Group>
               <FaUser className="opacity-70" />
-              <Input type="text" placeholder="Username" className="border-0" />
+              <Input type="text" placeholder="Username" />
             </Input.Group>
 
             <Input.Group>
               <FaEnvelope className="opacity-70" />
-              <Input type="email" placeholder="Email" className="border-0" />
+              <Input type="email" placeholder="Email" />
             </Input.Group>
 
             <Input.Group>
-              <Input type="text" placeholder="Search" className="border-0" />
+              <Input type="text" placeholder="Search" />
               <FaSearch className="opacity-70" />
             </Input.Group>
 
@@ -227,7 +227,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import { FaUser, FaEnvelope, FaLock, FaSearch } from 'react-icons/fa';
+            {`import { FaUser, FaEnvelope, FaLock, FaSearch } from 'react-icons/fa';
 
 <Input.Group>
   <FaUser className="opacity-70" />
@@ -251,7 +251,7 @@ const [value, setValue] = useState('');
       {/* Datalist (Autocomplete) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">自動完成 (Datalist)</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input
@@ -268,7 +268,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`<Input
+            {`<Input
   placeholder="選擇水果..."
   value={value}
   onChange={(value) => setValue(value as string)}
@@ -284,7 +284,7 @@ const [value, setValue] = useState('');
       {/* File Input */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">檔案上傳</h2>
-        
+
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input
@@ -305,7 +305,7 @@ const [value, setValue] = useState('');
 
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`const [fileValue, setFileValue] = useState<FileList | null>(null);
+            {`const [fileValue, setFileValue] = useState<FileList | null>(null);
 
 <Input
   type="file"

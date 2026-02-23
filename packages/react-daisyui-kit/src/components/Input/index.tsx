@@ -14,9 +14,8 @@ export interface InputProps
   value?: string | FileList;
   onChange?: (value: string | FileList) => void;
   allowClear?: boolean;
-  color?: "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error" | "neutral";
+  color?: "ghost" | "neutral" | "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
-  ghost?: boolean;
   datalist?: {
     listId: string;
     suggestions: string[];
@@ -41,25 +40,13 @@ const InputLabel = ({ children, alt, className }: { children: ReactNode; alt?: b
 const InputGroup = ({
   children,
   className,
-  color,
-  size,
-  ghost,
-  variant = "bordered"
 }: {
   children: ReactNode;
   className?: string;
-  color?: InputProps['color'];
-  size?: InputProps['size'];
-  ghost?: boolean;
-  variant?: "bordered" | "ghost";
 }) => (
   <InputGroupContext.Provider value={{ isInGroup: true }}>
     <label className={cn(
-      "input flex items-center gap-2",
-      variant === "bordered" && "input-bordered",
-      ghost && "input-ghost",
-      color && `input-${color}`,
-      size && `input-${size}`,
+      "input",
       className
     )}>
       {children}
@@ -92,7 +79,7 @@ const ClearButton = ({ onClick, size }: { onClick: () => void; size?: InputProps
 // --- 3. 主元件實作 (Input) ---
 
 const InputMain = forwardRef<HTMLInputElement, InputProps>(
-  ({ allowClear, className, value, onChange, color, size, ghost, datalist, type, ...props }, ref) => {
+  ({ allowClear, className, value, onChange, color, size, datalist, type, ...props }, ref) => {
     const { isInGroup } = useContext(InputGroupContext);
 
     const handleClear = useCallback(() => {
@@ -105,6 +92,9 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
     }, [onChange, type]);
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      // const newValue = type === 'file' ? e.target.files : e.target.value;
+      // console.log("Input change", { type, newValue, currentValue: value });
+
       if (type === 'file') {
         onChange?.(e.target.files as FileList);
       } else {
@@ -114,25 +104,45 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
 
     // 2. 環境與狀態判斷
     const isInsideContainer = isInGroup || allowClear;
-    const inputValue = type === 'file' ? undefined : (typeof value === 'string' ? value : "");
-    const hasValue = type !== 'file' && inputValue !== "";
-
+    // 判斷是否為受控組件（有傳入 value prop）
+    const isControlled = value !== undefined;
+    const inputValue = type === 'file' ? undefined : (typeof value === 'string' ? value : undefined);
+    const hasValue = type !== 'file' && inputValue !== "" && inputValue !== undefined;
+    const colorClasses = {
+      primary: 'input-primary',
+      secondary: 'input-secondary',
+      accent: 'input-accent',
+      info: 'input-info',
+      success: 'input-success',
+      warning: 'input-warning',
+      error: 'input-error',
+      neutral: 'input-neutral',
+      ghost: 'input-ghost',
+    };
+    const sizeClasses = {
+      xs: 'input-xs',
+      sm: 'input-sm',
+      md: '',
+      lg: 'input-lg',
+      xl: 'input-xl',
+    };
+    const colorClass = color ? colorClasses[color] : '';
+    const sizeClass = size ? sizeClasses[size] : '';
     // 3. 抽離核心 Input 元素，確保邏輯統一
     const InputElement = (
       <input
         ref={ref}
         type={type}
-        value={inputValue}
+        {...(isControlled ? { value: inputValue } : {})}
         onChange={handleChange}
         list={datalist?.listId}
         className={cn(
-          "grow",
+          isInsideContainer && "grow",
           // 只要處於容器模式 (Group 或 allowClear)，就不加 "input" class，避免樣式衝突
           !isInsideContainer && type !== 'file' && "input w-full",
           type === 'file' && "file-input file-input-bordered w-full",
-          ghost && "input-ghost",
-          color && `input-${color}`,
-          size && `input-${size}`,
+          colorClass,
+          sizeClass,
           className
         )}
         {...props}
@@ -152,9 +162,8 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
       return (
         <label className={cn(
           "input flex items-center gap-2",
-          ghost ? "input-ghost" : "input-bordered",
-          color && `input-${color}`,
-          size && `input-${size}`,
+          color && colorClasses[color],
+          size && sizeClasses[size],
         )}>
           {InputElement}
           {hasValue && <ClearButton onClick={handleClear} size={size} />}
