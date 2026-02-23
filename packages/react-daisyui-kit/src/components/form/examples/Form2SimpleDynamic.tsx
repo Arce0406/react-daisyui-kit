@@ -1,5 +1,5 @@
 import { Form } from '../';
-import Input from '../controls/Input';
+import Input from '../../Input';
 import NumberInput from '../../NumberInput';
 
 // 簡化的動態表單範例 - 僅使用字符串路徑

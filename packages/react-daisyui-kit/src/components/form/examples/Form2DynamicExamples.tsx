@@ -1,6 +1,6 @@
 "use client";
 import { Form } from '../';
-import Input from '../controls/Input';
+import Input from '../../Input';
 import NumberInput from '../../NumberInput';
 import Select from '../controls/Select';
 
