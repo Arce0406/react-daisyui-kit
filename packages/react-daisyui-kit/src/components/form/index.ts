@@ -14,10 +14,6 @@ export type {
 } from './types';
 
 export {
-  default as Input,
-  type InputProps
-} from './controls/Input';
-export {
   default as Select,
   type SelectProps,
   type SelectOption

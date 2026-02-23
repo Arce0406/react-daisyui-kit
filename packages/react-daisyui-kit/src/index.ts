@@ -1,7 +1,7 @@
 // ============================================
 // Basic Components
 // ============================================
-export { default as Input, type InputWithDataListProps } from './components/Input';
+export { default as Input } from './components/Input';
 export { default as TextArea, type TextAreaProps } from './components/TextArea';
 export { default as NumberInput, type NumberInputProps } from './components/NumberInput';
 export { default as PasswordInput, type InputProps as PasswordInputProps } from './components/PasswordInput';
