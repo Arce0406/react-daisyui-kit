@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, ReactNode, useCallback } from "react";
 import { cn } from "../../utils";
 import { RxCross2 } from "react-icons/rx";
