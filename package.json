@@ -10,8 +10,7 @@
     "demo:build": "pnpm run kit:build && cd websites/demo-client && pnpm run build",
     "dev": "pnpm --filter demo-client run dev",
     "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "pnpm run kit:build && changeset publish"
+    "changeset:version": "changeset version"
   },
   "keywords": [],
   "author": "",
