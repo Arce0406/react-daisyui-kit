@@ -15,6 +15,7 @@ export interface InputProps
   onChange?: (value: string | FileList) => void;
   allowClear?: boolean;
   color?: "ghost" | "neutral" | "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error";
+  error?: boolean;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   datalist?: {
     listId: string;
@@ -77,10 +78,36 @@ const ClearButton = ({ onClick, size }: { onClick: () => void; size?: InputProps
 );
 
 // --- 3. 主元件實作 (Input) ---
-
+const colorClasses = {
+  primary: 'input-primary',
+  secondary: 'input-secondary',
+  accent: 'input-accent',
+  info: 'input-info',
+  success: 'input-success',
+  warning: 'input-warning',
+  error: 'input-error',
+  neutral: 'input-neutral',
+  ghost: 'input-ghost',
+};
+const sizeClasses = {
+  xs: 'input-xs',
+  sm: 'input-sm',
+  md: '',
+  lg: 'input-lg',
+  xl: 'input-xl',
+};
 const InputMain = forwardRef<HTMLInputElement, InputProps>(
-  ({ allowClear, className, value, onChange, color, size, datalist, type, ...props }, ref) => {
+  ({ allowClear, className, value, onChange, color, size, datalist, type, error, ...props }, ref) => {
     const { isInGroup } = useContext(InputGroupContext);
+    const isInsideContainer = isInGroup || allowClear;
+    // 如果 error 為 true，強制顏色為 error，否則使用傳入的 color
+    const activeColor = error ? "error" : color;
+    // 判斷是否為受控組件（有傳入 value prop）
+    const isControlled = value !== undefined;
+    const inputValue = type === 'file' ? undefined : (typeof value === 'string' ? value : undefined);
+    const hasValue = type !== 'file' && inputValue !== "" && inputValue !== undefined;
+    const colorClass = activeColor ? colorClasses[activeColor] : '';
+    const sizeClass = size ? sizeClasses[size] : '';
 
     const handleClear = useCallback(() => {
       // 根據型別清空值
@@ -102,33 +129,7 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
       }
     }, [onChange, type]);
 
-    // 2. 環境與狀態判斷
-    const isInsideContainer = isInGroup || allowClear;
-    // 判斷是否為受控組件（有傳入 value prop）
-    const isControlled = value !== undefined;
-    const inputValue = type === 'file' ? undefined : (typeof value === 'string' ? value : undefined);
-    const hasValue = type !== 'file' && inputValue !== "" && inputValue !== undefined;
-    const colorClasses = {
-      primary: 'input-primary',
-      secondary: 'input-secondary',
-      accent: 'input-accent',
-      info: 'input-info',
-      success: 'input-success',
-      warning: 'input-warning',
-      error: 'input-error',
-      neutral: 'input-neutral',
-      ghost: 'input-ghost',
-    };
-    const sizeClasses = {
-      xs: 'input-xs',
-      sm: 'input-sm',
-      md: '',
-      lg: 'input-lg',
-      xl: 'input-xl',
-    };
-    const colorClass = color ? colorClasses[color] : '';
-    const sizeClass = size ? sizeClasses[size] : '';
-    // 3. 抽離核心 Input 元素，確保邏輯統一
+    // 抽離核心 Input 元素，確保邏輯統一
     const InputElement = (
       <input
         ref={ref}
@@ -136,6 +137,7 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
         {...(isControlled ? { value: inputValue } : {})}
         onChange={handleChange}
         list={datalist?.listId}
+        aria-invalid={error || activeColor === 'error'}
         className={cn(
           isInsideContainer && "grow",
           // 只要處於容器模式 (Group 或 allowClear)，就不加 "input" class，避免樣式衝突
@@ -160,11 +162,13 @@ const InputMain = forwardRef<HTMLInputElement, InputProps>(
     // 4. 根據 allowClear 決定最終渲染結構
     if (allowClear) {
       return (
-        <label className={cn(
-          "input flex items-center gap-2",
-          color && colorClasses[color],
-          size && sizeClasses[size],
-        )}>
+        <label
+          className={cn(
+            "input flex items-center gap-2",
+            colorClass,
+            sizeClass,
+          )}
+        >
           {InputElement}
           {hasValue && <ClearButton onClick={handleClear} size={size} />}
           {DataListElement}
