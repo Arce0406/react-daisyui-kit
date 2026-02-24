@@ -39,7 +39,7 @@ export default function InputPage() {
           Input Component
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-          一個功能豐富的輸入框元件，支援多種類型、自動完成、清除按鈕等功能。onChange 直接傳遞值而非事件對象。
+          A feature-rich input component that supports multiple types, autocomplete, clear button, and more. onChange directly passes the value instead of the event object.
         </p>
         <div className="flex gap-3 flex-wrap">
           <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200 dark:border-blue-700">
@@ -53,17 +53,17 @@ export default function InputPage() {
 
       {/* Basic Usage */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">基本用法</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Basic Usage</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
             <Input
               type="text"
-              placeholder="請輸入文字..."
+              placeholder="Enter text..."
               value={basicValue}
               onChange={(value) => setBasicValue(value as string)}
             />
-            <p className="text-sm text-gray-600 dark:text-gray-400">當前值: {basicValue}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Current value: {basicValue}</p>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ const [value, setValue] = useState('');
 
 <Input
   type="text"
-  placeholder="請輸入文字..."
+  placeholder="Enter text..."
   value={value}
   onChange={(value) => setValue(value as string)}
 />`}
@@ -86,19 +86,19 @@ const [value, setValue] = useState('');
 
       {/* With Label and Field */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">使用 Field 和 Label</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">With Field and Label</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input.Field>
-              <Input.Label>電子郵件</Input.Label>
+              <Input.Label>Email</Input.Label>
               <Input
                 type="email"
                 placeholder="your@email.com"
                 value={emailValue}
                 onChange={(value) => setEmailValue(value as string)}
               />
-              <Input.Helper>請輸入有效的電子郵件地址</Input.Helper>
+              <Input.Helper>Please enter a valid email address</Input.Helper>
             </Input.Field>
           </div>
         </div>
@@ -106,14 +106,14 @@ const [value, setValue] = useState('');
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
             {`<Input.Field>
-  <Input.Label>電子郵件</Input.Label>
+  <Input.Label>Email</Input.Label>
   <Input
     type="email"
     placeholder="your@email.com"
     value={emailValue}
     onChange={(value) => setEmailValue(value as string)}
   />
-  <Input.Helper>請輸入有效的電子郵件地址</Input.Helper>
+  <Input.Helper>Please enter a valid email address</Input.Helper>
 </Input.Field>`}
           </pre>
         </div>
@@ -121,13 +121,13 @@ const [value, setValue] = useState('');
 
       {/* Allow Clear */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">清除按鈕</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Clear Button</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input
               allowClear
-              placeholder="輸入後會顯示清除按鈕"
+              placeholder="Clear button appears after typing"
               value={clearableValue}
               onChange={(value) => setClearableValue(value as string)}
             />
@@ -138,7 +138,7 @@ const [value, setValue] = useState('');
           <pre className="text-gray-100 font-mono text-sm">
             {`<Input
   allowClear
-  placeholder="輸入後會顯示清除按鈕"
+  placeholder="Clear button appears after typing"
   value={value}
   onChange={(value) => setValue(value as string)}
 />`}
@@ -148,7 +148,7 @@ const [value, setValue] = useState('');
 
       {/* Colors */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">顏色變體</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Color Variants</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
@@ -175,7 +175,7 @@ const [value, setValue] = useState('');
 
       {/* Sizes */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">尺寸</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Sizes</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
@@ -198,7 +198,7 @@ const [value, setValue] = useState('');
 
       {/* Input Group with Icons */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">帶圖標的輸入框 (Input.Group)</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Input with Icons (Input.Group)</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
@@ -250,12 +250,12 @@ const [value, setValue] = useState('');
 
       {/* Datalist (Autocomplete) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">自動完成 (Datalist)</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Autocomplete (Datalist)</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md">
             <Input
-              placeholder="選擇水果..."
+              placeholder="Select a fruit..."
               value={datalistValue}
               onChange={(value) => setDatalistValue(value as string)}
               datalist={{
@@ -269,7 +269,7 @@ const [value, setValue] = useState('');
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
             {`<Input
-  placeholder="選擇水果..."
+  placeholder="Select a fruit..."
   value={value}
   onChange={(value) => setValue(value as string)}
   datalist={{
@@ -283,7 +283,7 @@ const [value, setValue] = useState('');
 
       {/* File Input */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">檔案上傳</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">File Upload</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
           <div className="max-w-md space-y-4">
@@ -292,12 +292,12 @@ const [value, setValue] = useState('');
               onChange={(value) => {
                 const files = value as FileList;
                 setFileValue(files);
-                console.log('選擇的檔案:', files);
+                console.log('Selected files:', files);
               }}
             />
             {fileValue && fileValue.length > 0 && (
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                已選擇: {fileValue[0].name}
+                Selected: {fileValue[0].name}
               </p>
             )}
           </div>
@@ -312,7 +312,7 @@ const [value, setValue] = useState('');
   onChange={(value) => {
     const files = value as FileList;
     setFileValue(files);
-    console.log('選擇的檔案:', files);
+    console.log('Selected files:', files);
   }}
 />`}
           </pre>
@@ -337,43 +337,43 @@ const [value, setValue] = useState('');
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">value</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | FileList</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">輸入框的值</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">The input value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value: string | FileList) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">值改變時的回調，直接接收值而非事件</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Callback when value changes, receives value directly instead of event</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">allowClear</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">boolean</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">false</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">顯示清除按鈕</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Show clear button</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">color</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'primary' | 'secondary' | 'accent' | ...</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">輸入框顏色</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Input color</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'xs' | 'sm' | 'md' | 'lg' | 'xl'</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">輸入框大小</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Input size</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">ghost</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">boolean</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">false</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Ghost 樣式</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Ghost style</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">datalist</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">{'{ listId: string; suggestions: string[] }'}</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">自動完成建議列表</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Autocomplete suggestions list</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">type</td>
@@ -388,30 +388,30 @@ const [value, setValue] = useState('');
 
       {/* Sub Components */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">子元件</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Sub Components</h2>
         <div className="space-y-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2 font-mono">Input.Field</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-              外層表單控制容器，使用 daisyUI 的 form-control
+              Form control wrapper using daisyUI's form-control
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2 font-mono">Input.Label</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-              標籤元件，支援 alt 屬性切換樣式
+              Label component, supports alt attribute for style switching
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2 font-mono">Input.Group</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-              組合輸入框與圖標、按鈕等元素
+              Combines input with icons, buttons, and other elements
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2 font-mono">Input.Helper</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-              輔助提示文字
+              Helper text for additional guidance
             </p>
           </div>
         </div>
@@ -419,30 +419,30 @@ const [value, setValue] = useState('');
 
       {/* Features */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">特色功能</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🎯 直接值傳遞</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🎯 Direct Value Passing</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              onChange 直接傳遞值 (string | FileList)，無需從事件對象中提取
+              onChange directly passes the value (string | FileList) without needing to extract from event object
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">📁 檔案上傳支援</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">📁 File Upload Support</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              type="file" 時自動處理 FileList，統一的 API
+              Automatically handles FileList when type="file", providing a unified API
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🧹 清除功能</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🧹 Clear Functionality</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              內建清除按鈕，allowClear 屬性啟用
+              Built-in clear button, enabled with allowClear prop
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🎨 複合元件設計</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">🎨 Compound Component Design</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              提供 Field、Label、Group、Helper 子元件靈活組合
+              Provides flexible composition with Field, Label, Group, and Helper sub-components
             </p>
           </div>
         </div>
