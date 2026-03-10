@@ -1,5 +1,6 @@
 'use client';
 
+import { Checkbox } from '@featherstudio/react-daisyui-kit';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -43,24 +44,13 @@ export default function CheckboxPage() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
 
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div className="space-y-4">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={(e) => setChecked(e.target.checked)}
-                className="w-5 h-5 cursor-pointer"
-              />
-              <span className="text-gray-700 dark:text-gray-300">I agree to the terms</span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                defaultChecked
-                className="w-5 h-5 cursor-pointer"
-              />
-              <span className="text-gray-700 dark:text-gray-300">Receive notifications</span>
-            </label>
+          <div className="flex flex-col space-y-4">
+            <Checkbox
+              checked={checked}
+              onChange={setChecked}
+              label="I agree to the terms"
+            />
+            <p className="text-sm text-gray-600 dark:text-gray-400">Current value: {checked ? 'checked' : 'unchecked'}</p>
           </div>
         </div>
       </section>
@@ -79,7 +69,7 @@ export default function App() {
   return (
     <Checkbox
       checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
+      onChange={setChecked}
       label="I agree to terms"
     />
   );
@@ -141,9 +131,9 @@ export default function App() {
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(checked: boolean) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Called with the next checked state</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">label</td>
@@ -157,11 +147,29 @@ export default function App() {
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">false</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Disable checkbox</td>
               </tr>
-              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">id</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Unique identifier</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Controls the DaisyUI checkbox size</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">error</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | string[]</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Applies the error style for form validation scenarios</td>
+              </tr>
+              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onBlur</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">() =&gt; void</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Blur handler for focus validation flows</td>
               </tr>
             </tbody>
           </table>

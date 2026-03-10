@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+'use client';
+import { forwardRef, useState } from "react";
 
 // 複選框組件
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'size'> {
@@ -10,7 +11,10 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
     size?: 'sm' | 'md' | 'lg';
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ checked = false, onChange, onBlur, error, label, size = 'md', className = '', ...props }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ checked, defaultChecked = false, onChange, onBlur, error, label, size = 'md', className = '', ...props }, ref) => {
+    const isControlled = checked !== undefined;
+    const [internalChecked, setInternalChecked] = useState(Boolean(defaultChecked));
+    const currentChecked = isControlled ? checked : internalChecked;
     const sizeClass = {
         sm: 'checkbox-sm',
         md: '',
@@ -21,8 +25,14 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({ checked = false,
         <input
             ref={ref}
             type="checkbox"
-            checked={checked}
-            onChange={(e) => onChange?.(e.target.checked)}
+            checked={currentChecked}
+            onChange={(e) => {
+                const nextChecked = e.target.checked;
+                if (!isControlled) {
+                    setInternalChecked(nextChecked);
+                }
+                onChange?.(nextChecked);
+            }}
             onBlur={onBlur}
             className={`checkbox ${sizeClass} ${errorClass} ${className}`.trim()}
             {...props}
