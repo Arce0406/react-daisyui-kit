@@ -1,8 +1,24 @@
 'use client';
 
+import { Dropdowns, type DropdownItem } from '@featherstudio/react-daisyui-kit';
 import Link from 'next/link';
+import { useMemo, useState } from 'react';
 
 export default function DropdownsPage() {
+  const [selectedKey, setSelectedKey] = useState<string>('');
+
+  const menuItems = useMemo<DropdownItem[]>(
+    () => [
+      { key: 'profile', label: '個人資料' },
+      { key: 'settings', label: '設定' },
+      { divider: true },
+      { key: 'help', label: '說明中心' },
+      { key: 'delete', label: '刪除專案', danger: true },
+      { key: 'disabled', label: '停用選項', disabled: true },
+    ],
+    []
+  );
+
   return (
     <div className="min-h-screen pb-16">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -15,27 +31,46 @@ export default function DropdownsPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-3">Dropdowns Component</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-          A flexible dropdown menu component with positioning and positioning options.
+          A flexible dropdown menu component with keyboard navigation, placement options, and customizable trigger content.
         </p>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div className="relative inline-block">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-              Menu ▼
-            </button>
-            <div className="absolute top-full mt-1 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
-              <a href="#" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Option 1
-              </a>
-              <a href="#" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Option 2
-              </a>
-              <a href="#" className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-                Option 3
-              </a>
+          <div className="flex flex-wrap items-start gap-4">
+            <Dropdowns
+              items={menuItems}
+              onSelect={(key) => setSelectedKey(key)}
+              trigger={
+                <button className="btn btn-primary" type="button">
+                  動作選單
+                </button>
+              }
+            />
+
+            <Dropdowns
+              items={menuItems}
+              placement="top"
+              trigger={
+                <button className="btn btn-outline" type="button">
+                  往上展開
+                </button>
+              }
+            />
+
+            <Dropdowns
+              items={menuItems}
+              disabled
+              trigger={
+                <button className="btn" type="button">
+                  Disabled
+                </button>
+              }
+            />
+
+            <div className="w-full text-sm text-gray-600 dark:text-gray-300 mt-2">
+              已選擇：{selectedKey || '尚未選擇'}
             </div>
           </div>
         </div>
@@ -45,20 +80,26 @@ export default function DropdownsPage() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import { Dropdown } from '@featherstudio/react-daisyui-kit';
+{`import { Dropdowns, type DropdownItem } from '@featherstudio/react-daisyui-kit';
 import { useState } from 'react';
 
+const items: DropdownItem[] = [
+  { key: 'profile', label: '個人資料' },
+  { key: 'settings', label: '設定' },
+  { divider: true },
+  { key: 'delete', label: '刪除', danger: true },
+];
+
 export default function App() {
-  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState('');
 
   return (
-    <Dropdown open={open} onOpenChange={setOpen} position="bottom">
-      <Dropdown.Trigger>Menu</Dropdown.Trigger>
-      <Dropdown.Content>
-        <a href="#">Option 1</a>
-        <a href="#">Option 2</a>
-      </Dropdown.Content>
-    </Dropdown>
+    <Dropdowns
+      items={items}
+      placement="bottom"
+      onSelect={setSelected}
+      trigger={<button className="btn">Menu</button>}
+    />
   );
 }`}
           </pre>
@@ -69,9 +110,9 @@ export default function App() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Multiple Positions</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Placement Support</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Top, bottom, left, right, and auto positioning.
+              Supports top and bottom dropdown placement.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -89,7 +130,7 @@ export default function App() {
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Flexible Content</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Support any content type in dropdown.
+              Customize item labels, danger state, disabled state, and divider rows.
             </p>
           </div>
         </div>
@@ -102,28 +143,40 @@ export default function App() {
             <thead><tr className="border-b-2"><th className="text-left py-3 px-4 font-semibold">Prop</th><th className="text-left py-3 px-4 font-semibold">Type</th><th className="text-left py-3 px-4 font-semibold">Default</th><th className="text-left py-3 px-4 font-semibold">Description</th></tr></thead>
             <tbody>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">open</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">items</td>
+                <td className="py-3 px-4 font-mono">DropdownItem[]</td>
+                <td className="py-3 px-4 font-mono">-</td>
+                <td className="py-3 px-4">Dropdown item list (required)</td>
+              </tr>
+              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onSelect</td>
+                <td className="py-3 px-4 font-mono">(key: string) =&gt; void</td>
+                <td className="py-3 px-4 font-mono">-</td>
+                <td className="py-3 px-4">Called when an enabled item with key is selected</td>
+              </tr>
+              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">disabled</td>
                 <td className="py-3 px-4 font-mono">boolean</td>
                 <td className="py-3 px-4 font-mono">false</td>
-                <td className="py-3 px-4">Dropdown visibility</td>
+                <td className="py-3 px-4">Disables trigger interaction</td>
               </tr>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onOpenChange</td>
-                <td className="py-3 px-4 font-mono">function</td>
-                <td className="py-3 px-4 font-mono">-</td>
-                <td className="py-3 px-4">State change handler</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">trigger</td>
+                <td className="py-3 px-4 font-mono">ReactNode</td>
+                <td className="py-3 px-4 font-mono">default button</td>
+                <td className="py-3 px-4">Custom trigger content for opening the dropdown</td>
               </tr>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">position</td>
-                <td className="py-3 px-4 font-mono">string</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">placement</td>
+                <td className="py-3 px-4 font-mono">'bottom' | 'top'</td>
                 <td className="py-3 px-4 font-mono">'bottom'</td>
                 <td className="py-3 px-4">Menu position</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">children</td>
-                <td className="py-3 px-4 font-mono">ReactNode</td>
-                <td className="py-3 px-4 font-mono">-</td>
-                <td className="py-3 px-4">Dropdown content</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">className</td>
+                <td className="py-3 px-4 font-mono">string</td>
+                <td className="py-3 px-4 font-mono">''</td>
+                <td className="py-3 px-4">Additional classes for the wrapper</td>
               </tr>
             </tbody>
           </table>
