@@ -2,9 +2,16 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { Tabs, type TabItem } from '@featherstudio/react-daisyui-kit';
+
+const DEMO_ITEMS: TabItem[] = [
+  { id: 'tab1', label: 'Tab 1', content: 'Content for Tab 1' },
+  { id: 'tab2', label: 'Tab 2', content: 'Content for Tab 2' },
+  { id: 'tab3', label: 'Tab 3', content: 'Content for Tab 3' },
+];
 
 export default function TabsPage() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<string>('tab1');
 
   return (
     <div className="min-h-screen pb-16">
@@ -25,20 +32,11 @@ export default function TabsPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div>
-            <div className="flex border-b border-gray-300 dark:border-gray-600">
-              {['Tab 1', 'Tab 2', 'Tab 3'].map((tab, i) => (
-                <button key={i} onClick={() => setActiveTab(i)} className={`px-4 py-2 font-medium border-b-2 transition-colors ${activeTab === i ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}>
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <div className="p-4 text-gray-700 dark:text-gray-300">
-              {activeTab === 0 && 'Content for Tab 1'}
-              {activeTab === 1 && 'Content for Tab 2'}
-              {activeTab === 2 && 'Content for Tab 3'}
-            </div>
-          </div>
+          <Tabs
+            items={DEMO_ITEMS}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </div>
       </section>
 
@@ -46,17 +44,23 @@ export default function TabsPage() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import { Tabs } from '@featherstudio/react-daisyui-kit';
+{`import { Tabs, type TabItem } from '@featherstudio/react-daisyui-kit';
 import { useState } from 'react';
 
+const items: TabItem[] = [
+  { id: 'tab1', label: 'Tab 1', content: 'Content 1' },
+  { id: 'tab2', label: 'Tab 2', content: 'Content 2' },
+];
+
 export default function App() {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState<string>('tab1');
 
   return (
-    <Tabs activeTab={active} onChange={setActive}>
-      <Tabs.Tab label="Tab 1">Content 1</Tabs.Tab>
-      <Tabs.Tab label="Tab 2">Content 2</Tabs.Tab>
-    </Tabs>
+    <Tabs
+      items={items}
+      activeTab={active}
+      onTabChange={setActive}
+    />
   );
 }`}
           </pre>
@@ -73,21 +77,21 @@ export default function App() {
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Keyboard Support</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Controlled & Uncontrolled</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Arrow keys for navigation between tabs.
+              Supports both controlled (activeTab + onTabChange) and uncontrolled usage.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Lazy Loading</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Multiple Variants</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Load content only when tab is active.
+              Choose from default, bordered, lifted, or boxed styles.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Customizable</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Icon Support</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Configure appearance and behavior.
+              Each tab item can include an optional icon alongside the label.
             </p>
           </div>
         </div>
@@ -100,28 +104,40 @@ export default function App() {
             <thead><tr className="border-b-2"><th className="text-left py-3 px-4 font-semibold">Prop</th><th className="text-left py-3 px-4 font-semibold">Type</th><th className="text-left py-3 px-4 font-semibold">Default</th><th className="text-left py-3 px-4 font-semibold">Description</th></tr></thead>
             <tbody>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">activeTab</td>
-                <td className="py-3 px-4 font-mono">number</td>
-                <td className="py-3 px-4 font-mono">0</td>
-                <td className="py-3 px-4">Active tab index</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">items</td>
+                <td className="py-3 px-4 font-mono">TabItem[]</td>
+                <td className="py-3 px-4 font-mono">-</td>
+                <td className="py-3 px-4">Array of tab definitions (id, label, content, disabled?, icon?)</td>
               </tr>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono">function</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">activeTab</td>
+                <td className="py-3 px-4 font-mono">string</td>
                 <td className="py-3 px-4 font-mono">-</td>
-                <td className="py-3 px-4">Change handler</td>
+                <td className="py-3 px-4">Controlled active tab id</td>
+              </tr>
+              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onTabChange</td>
+                <td className="py-3 px-4 font-mono">(tabId: string) =&gt; void</td>
+                <td className="py-3 px-4 font-mono">-</td>
+                <td className="py-3 px-4">Callback when active tab changes</td>
               </tr>
               <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">variant</td>
-                <td className="py-3 px-4 font-mono">string</td>
+                <td className="py-3 px-4 font-mono">'default' | 'bordered' | 'lifted' | 'boxed'</td>
                 <td className="py-3 px-4 font-mono">'default'</td>
                 <td className="py-3 px-4">Tab style variant</td>
               </tr>
+              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono">'xs' | 'sm' | 'md' | 'lg' | 'xl'</td>
+                <td className="py-3 px-4 font-mono">'md'</td>
+                <td className="py-3 px-4">Tab size</td>
+              </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">children</td>
-                <td className="py-3 px-4 font-mono">ReactNode</td>
-                <td className="py-3 px-4 font-mono">-</td>
-                <td className="py-3 px-4">Tab content</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">position</td>
+                <td className="py-3 px-4 font-mono">'top' | 'bottom'</td>
+                <td className="py-3 px-4 font-mono">'top'</td>
+                <td className="py-3 px-4">Tab bar position</td>
               </tr>
             </tbody>
           </table>
