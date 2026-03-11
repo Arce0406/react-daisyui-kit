@@ -1,8 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import NumberInput from '@featherstudio/react-daisyui-kit/src/components/NumberInput';
 
 export default function NumberInputPage() {
+  const [quantity, setQuantity] = useState<number | undefined>(1);
+  const [price, setPrice] = useState<number | undefined>(99.99);
+  const [smallValue, setSmallValue] = useState<number | undefined>(12);
+  const [largeValue, setLargeValue] = useState<number | undefined>(1200);
+
   return (
     <div className="min-h-screen pb-16">
       {/* Breadcrumb */}
@@ -22,7 +29,7 @@ export default function NumberInputPage() {
           NumberInput Component
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-          Specialized numeric input component with increment/decrement controls and number validation built-in.
+          Numeric input component with value parsing, precision control, DaisyUI size variants, and native input attributes such as min / max / step.
         </p>
         <div className="flex gap-3 flex-wrap">
           <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200 dark:border-blue-700">
@@ -35,14 +42,62 @@ export default function NumberInputPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Quantity
-            </label>
-            <div className="flex items-center gap-2">
-              <button className="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">−</button>
-              <input type="number" defaultValue="1" className="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-center" />
-              <button className="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">+</button>
+          <div className="max-w-lg space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Quantity (min 0, max 100, step 1)
+              </label>
+              <NumberInput
+                value={quantity}
+                onChange={(next) => setQuantity(typeof next === 'number' ? next : undefined)}
+                min={0}
+                max={100}
+                step={1}
+                placeholder="Enter quantity"
+              />
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                Current value: {quantity ?? '-'}
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Unit Price (precision 2)
+              </label>
+              <NumberInput
+                value={price}
+                onChange={(next) => setPrice(typeof next === 'number' ? next : undefined)}
+                precision={2}
+                step={0.01}
+                min={0}
+                placeholder="0.00"
+              />
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                Current value: {typeof price === 'number' ? price.toFixed(2) : '-'}
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Size sm
+                </label>
+                <NumberInput
+                  size="sm"
+                  value={smallValue}
+                  onChange={(next) => setSmallValue(typeof next === 'number' ? next : undefined)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Size lg
+                </label>
+                <NumberInput
+                  size="lg"
+                  value={largeValue}
+                  onChange={(next) => setLargeValue(typeof next === 'number' ? next : undefined)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -57,15 +112,17 @@ export default function NumberInputPage() {
 import { useState } from 'react';
 
 export default function App() {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState<number | undefined>(1);
 
   return (
     <NumberInput
       value={value}
-      onChange={setValue}
+      onChange={(next) => setValue(typeof next === 'number' ? next : undefined)}
       min={0}
       max={100}
       step={1}
+      precision={2}
+      size="md"
     />
   );
 }`}
@@ -78,27 +135,27 @@ export default function App() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Increment/Decrement</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Native Number Input</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Built-in controls to increase or decrease the value.
+              Uses type=&quot;number&quot; and supports native attributes like min, max, and step.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Min/Max Limits</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Precision Control</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Enforce minimum and maximum value constraints.
+              Use the precision prop to round user input to a fixed number of decimals.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Step Control</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">DaisyUI Size Variants</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Customize increment/decrement step value.
+              Built-in size options: sm, md, and lg.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Type Safe</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Error State Styling</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Only accepts valid numeric input.
+              Pass error to apply DaisyUI error styles for validation feedback.
             </p>
           </div>
         </div>
@@ -120,33 +177,33 @@ export default function App() {
             <tbody>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">value</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">number</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">0</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">number | undefined</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">undefined</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Current value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value: number) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Callback when value changes</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">min</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">number</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-∞</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Minimum value</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Input size variant</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">max</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">precision</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">number</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">+∞</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Maximum value</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Decimal places after rounding</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">step</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">number</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">1</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Increment step</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">...rest input props</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">InputHTMLAttributes</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Supports native props like min, max, step, placeholder, disabled</td>
               </tr>
             </tbody>
           </table>
