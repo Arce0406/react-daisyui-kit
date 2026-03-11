@@ -9,12 +9,12 @@ export default function DropdownsPage() {
 
   const menuItems = useMemo<DropdownItem[]>(
     () => [
-      { key: 'profile', label: '個人資料' },
-      { key: 'settings', label: '設定' },
+      { key: 'profile', label: 'Profile' },
+      { key: 'settings', label: 'Settings' },
       { divider: true },
-      { key: 'help', label: '說明中心' },
-      { key: 'delete', label: '刪除專案', danger: true },
-      { key: 'disabled', label: '停用選項', disabled: true },
+      { key: 'help', label: 'Help Center' },
+      { key: 'delete', label: 'Delete Project', danger: true },
+      { key: 'disabled', label: 'Disabled Option', disabled: true },
     ],
     []
   );
@@ -44,7 +44,7 @@ export default function DropdownsPage() {
               onSelect={(key) => setSelectedKey(key)}
               trigger={
                 <button className="btn btn-primary" type="button">
-                  動作選單
+                  Actions
                 </button>
               }
             />
@@ -54,7 +54,7 @@ export default function DropdownsPage() {
               placement="top"
               trigger={
                 <button className="btn btn-outline" type="button">
-                  往上展開
+                  Open Upward
                 </button>
               }
             />
@@ -70,7 +70,7 @@ export default function DropdownsPage() {
             />
 
             <div className="w-full text-sm text-gray-600 dark:text-gray-300 mt-2">
-              已選擇：{selectedKey || '尚未選擇'}
+              Selected: {selectedKey || 'None selected'}
             </div>
           </div>
         </div>
@@ -84,10 +84,10 @@ export default function DropdownsPage() {
 import { useState } from 'react';
 
 const items: DropdownItem[] = [
-  { key: 'profile', label: '個人資料' },
-  { key: 'settings', label: '設定' },
+  { key: 'profile', label: 'Profile' },
+  { key: 'settings', label: 'Settings' },
   { divider: true },
-  { key: 'delete', label: '刪除', danger: true },
+  { key: 'delete', label: 'Delete', danger: true },
 ];
 
 export default function App() {
