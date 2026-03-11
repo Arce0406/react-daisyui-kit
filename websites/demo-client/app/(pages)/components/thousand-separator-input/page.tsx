@@ -1,8 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import ThousandSeparatorInput from '@featherstudio/react-daisyui-kit/src/components/ThousandSeparatorInput';
 
 export default function ThousandSeparatorInputPage() {
+  const [amount, setAmount] = useState('1234567.89');
+
   return (
     <div className="min-h-screen pb-16">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -32,11 +36,18 @@ export default function ThousandSeparatorInputPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div>
+          <div className="max-w-lg space-y-3">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Amount
             </label>
-            <input type="text" value="1,234,567" readOnly className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
+            <ThousandSeparatorInput
+              value={amount}
+              onChange={setAmount}
+              placeholder="Enter amount"
+            />
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Raw value (onChange): {amount || '-'}
+            </p>
           </div>
         </div>
       </section>
@@ -55,7 +66,7 @@ export default function App() {
     <ThousandSeparatorInput
       value={value}
       onChange={setValue}
-      separator=","
+      placeholder="Enter amount"
     />
   );
 }`}
@@ -79,9 +90,9 @@ export default function App() {
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Customizable Separator</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Decimal Input Support</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Choose comma, period, or custom separators.
+              Keeps decimal values while formatting the integer part with thousands separators.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -108,27 +119,27 @@ export default function App() {
             <tbody>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">value</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | number</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Input value</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Controlled input value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value: string) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Returns cleaned numeric string</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">separator</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">className</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">','</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Thousand separator</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'input input-bordered w-full'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Custom input classes</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">placeholder</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">...rest input props</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">InputHTMLAttributes</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Placeholder text</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Supports native props such as placeholder, disabled, name, id</td>
               </tr>
             </tbody>
           </table>
