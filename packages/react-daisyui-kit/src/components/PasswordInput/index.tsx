@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // 密碼輸入框組件
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'size' | 'value'> {
@@ -51,7 +52,7 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ value = '', on
                     className="absolute right-2 top-1/2 -translate-y-1/2 btn btn-ghost btn-xs"
                     onClick={() => setShowPassword((v) => !v)}
                 >
-                    {showPassword ? '隱藏' : '顯示'}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
             )}
         </div>

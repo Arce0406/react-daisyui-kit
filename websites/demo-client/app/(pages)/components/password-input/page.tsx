@@ -1,8 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { PasswordInput } from '@featherstudio/react-daisyui-kit';
 
 export default function PasswordInputPage() {
+  const [password, setPassword] = useState('');
+
   return (
     <div className="min-h-screen pb-16">
       {/* Breadcrumb */}
@@ -39,10 +43,11 @@ export default function PasswordInputPage() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
             </label>
-            <div className="relative">
-              <input type="password" placeholder="Enter password..." className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              <button className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700">👁️</button>
-            </div>
+            <PasswordInput
+              value={password}
+              onChange={(value) => setPassword(value as string)}
+              placeholder="Enter password..."
+            />
           </div>
         </div>
       </section>
@@ -61,7 +66,7 @@ export default function App() {
   return (
     <PasswordInput
       value={password}
-      onChange={(e) => setPassword(e.target.value)}
+      onChange={(value) => setPassword(value as string)}
       placeholder="Enter password"
     />
   );
@@ -134,7 +139,7 @@ export default function App() {
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Placeholder text</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">showToggle</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">showPasswordToggle</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">boolean</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">true</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Show visibility toggle</td>
