@@ -216,19 +216,27 @@ const ComboInput = forwardRef<HTMLInputElement, ComboInputProps>(({
       <div
         className={`
             input input-bordered w-full flex items-center gap-1 cursor-text
+            ${multiple ? 'h-auto min-h-12 py-1' : ''}
             ${sizeClass} ${errorClass} ${disabledClass} ${className}
           `.trim()}
-        onClick={() => !disabled && inputRef.current?.focus()}
+        onClick={() => {
+          if (disabled) return;
+          if (multiple && selectedItems.length > 0) {
+            setIsOpen(true);
+            return;
+          }
+          inputRef.current?.focus();
+        }}
       >
-        {/* 多選標籤 */}
-        {multiple && selectedItems.length > 0 && (
-          <div className="flex flex-wrap gap-1 flex-1 min-w-0">
-            {selectedItems.map((item, index) => (
+        {multiple ? (
+          <div className="flex flex-1 flex-wrap items-center gap-1 min-w-0">
+            {/* 多選標籤 */}
+            {selectedItems.length > 0 && selectedItems.map((item, index) => (
               <span
                 key={index}
                 className="badge badge-primary gap-1 shrink-0"
               >
-                <span className="truncate max-w-[120px]">{getTagLabel(item)}</span>
+                <span className="truncate max-w-30">{getTagLabel(item)}</span>
                 {!disabled && (
                   <button
                     type="button"
@@ -240,32 +248,54 @@ const ComboInput = forwardRef<HTMLInputElement, ComboInputProps>(({
                 )}
               </span>
             ))}
+
+            {/* 輸入框 */}
+            {selectedItems.length === 0 && (
+              <input
+                ref={(node) => {
+                  if (typeof ref === 'function') {
+                    ref(node);
+                  } else if (ref) {
+                    (ref as React.RefObject<HTMLInputElement | null>).current = node;
+                  }
+                  (inputRef as React.RefObject<HTMLInputElement | null>).current = node;
+                }}
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                onKeyDown={handleKeyDown}
+                placeholder={placeholder}
+                disabled={disabled}
+                className="grow min-w-30 outline-none bg-transparent"
+                {...props}
+              />
+            )}
           </div>
+        ) : (
+          <input
+            ref={(node) => {
+              if (typeof ref === 'function') {
+                ref(node);
+              } else if (ref) {
+                (ref as React.RefObject<HTMLInputElement | null>).current = node;
+              }
+              (inputRef as React.RefObject<HTMLInputElement | null>).current = node;
+            }}
+            type="text"
+            value={currentInputValue}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            disabled={disabled}
+            className="flex-1 min-w-0 outline-none bg-transparent"
+            {...props}
+          />
         )}
 
-        {/* 輸入框 */}
-        <input
-          ref={(node) => {
-            if (typeof ref === 'function') {
-              ref(node);
-            } else if (ref) {
-              (ref as React.RefObject<HTMLInputElement | null>).current = node;
-            }
-            (inputRef as React.RefObject<HTMLInputElement | null>).current = node;
-          }}
-          type="text"
-          value={multiple ? inputValue : currentInputValue}
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-          onKeyDown={handleKeyDown}
-          placeholder={multiple && selectedItems.length > 0 ? '' : placeholder}
-          disabled={disabled}
-          className="flex-1 min-w-0 outline-none bg-transparent"
-          {...props}
-        />
-
         {/* 右側按鈕區域 */}
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-1 shrink-0 self-center">
           {/* 清空按鈕 */}
           {allowClear && hasValue && !disabled && (
             <button
@@ -301,7 +331,7 @@ const ComboInput = forwardRef<HTMLInputElement, ComboInputProps>(({
         >
           <div className="overflow-y-auto max-h-full">
             {filteredOptions.length > 0 ? (
-              <ul className="menu p-1">
+              <ul className="menu w-full p-1">
                 {filteredOptions.map((option, index) => {
                   const isSelected = multiple
                     ? selectedItems.includes(option.value)
