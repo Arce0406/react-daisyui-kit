@@ -6,6 +6,9 @@ export { pathToString, getNestedValue, setNestedValue } from './utils';
 export type {
   FormValues,
   FormErrors,
+  FormRef,
+  FormLocale,
+  FormValidateMessages,
   ValidationRule,
   FormItemInstance,
   FormContextType,
