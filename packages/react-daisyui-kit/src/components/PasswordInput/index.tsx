@@ -15,8 +15,16 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     type?: 'password' | 'text';
 }
 
-const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ value = '', onChange, onBlur, error, size = 'md', variant = 'bordered', className = '', type = 'password', showPasswordToggle = true, disabled, ...props }, ref) => {
+const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ value, defaultValue, onChange, onBlur, error, size = 'md', variant = 'bordered', className = '', type = 'password', showPasswordToggle = true, disabled, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [internalValue, setInternalValue] = useState(() => {
+        if (typeof defaultValue === 'string') return defaultValue;
+        if (typeof defaultValue === 'number') return String(defaultValue);
+        if (Array.isArray(defaultValue)) return defaultValue.join(',');
+        return '';
+    });
+    const isControlled = value !== undefined;
+    const currentValue = isControlled ? value : internalValue;
     const isPasswordField = type === "password";
     const currentType = isPasswordField && showPassword ? "text" : type;
     const sizeClass = {
@@ -31,13 +39,17 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(({ value = '', on
     }[variant];
     const errorClass = error ? 'input-error' : '';
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange?.(e.target.value);
+        const nextValue = e.target.value;
+        if (!isControlled) {
+            setInternalValue(nextValue);
+        }
+        onChange?.(nextValue);
     };
     return (
         <div className="relative w-full">
             <input
                 ref={ref}
-                value={value}
+                value={currentValue}
                 type={currentType}
                 onChange={handleChange}
                 onBlur={onBlur}
