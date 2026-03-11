@@ -1,6 +1,145 @@
 'use client';
 
 import Link from 'next/link';
+import { DataTable } from '@featherstudio/react-daisyui-kit';
+
+interface DemoUser extends Record<string, unknown> {
+  id: string;
+  name: string;
+  email: string;
+  role: 'ADMIN' | 'USER' | 'MODERATOR';
+  isActive: boolean;
+  createdAt: string;
+}
+
+const sampleUsers: DemoUser[] = [
+  {
+    id: '1',
+    name: 'John Doe',
+    email: 'john@example.com',
+    role: 'ADMIN',
+    isActive: true,
+    createdAt: '2025-11-03'
+  },
+  {
+    id: '2',
+    name: 'Alice Chen',
+    email: 'alice@example.com',
+    role: 'USER',
+    isActive: true,
+    createdAt: '2025-10-26'
+  },
+  {
+    id: '3',
+    name: 'Brian Wang',
+    email: 'brian@example.com',
+    role: 'MODERATOR',
+    isActive: false,
+    createdAt: '2025-10-18'
+  },
+  {
+    id: '4',
+    name: 'Cynthia Lin',
+    email: 'cynthia@example.com',
+    role: 'USER',
+    isActive: true,
+    createdAt: '2025-10-11'
+  },
+  {
+    id: '5',
+    name: 'Cynthia Lin',
+    email: 'cynthia@example.com',
+    role: 'USER',
+    isActive: true,
+    createdAt: '2025-10-11'
+  },
+  {
+    id: '6',
+    name: 'Cynthia Lin',
+    email: 'cynthia@example.com',
+    role: 'USER',
+    isActive: true,
+    createdAt: '2025-10-11'
+  }
+];
+
+const columns = [
+  {
+    key: 'name',
+    title: 'Name',
+    dataIndex: 'name',
+    sortable: true,
+    filterable: true
+  },
+  {
+    key: 'email',
+    title: 'Email',
+    dataIndex: 'email',
+    sortable: true,
+    filterable: true
+  },
+  {
+    key: 'role',
+    title: 'Role',
+    dataIndex: 'role',
+    sortable: true,
+    align: 'center' as const,
+    render: (value: unknown) => {
+      const role = String(value);
+      const className = role === 'ADMIN'
+        ? 'badge-error'
+        : role === 'MODERATOR'
+          ? 'badge-warning'
+          : 'badge-info';
+
+      return <span className={`badge badge-sm ${className}`}>{role}</span>;
+    }
+  },
+  {
+    key: 'isActive',
+    title: 'Status',
+    dataIndex: 'isActive',
+    align: 'center' as const,
+    sortable: true,
+    render: (value: unknown) => (
+      <span className={`badge badge-sm ${value ? 'badge-success' : 'badge-error'}`}>
+        {value ? 'Active' : 'Inactive'}
+      </span>
+    )
+  },
+  {
+    key: 'createdAt',
+    title: 'Created At',
+    dataIndex: 'createdAt',
+    sortable: true,
+    align: 'center' as const
+  }
+];
+
+const summaryConfig = {
+  show: true,
+  fixed: true,
+  columns: [
+    {
+      key: 'name',
+      type: 'custom' as const,
+      render: () => <strong>Total</strong>
+    },
+    {
+      key: 'isActive',
+      type: 'custom' as const,
+      render: (data: DemoUser[]) => {
+        const activeCount = data.filter((item) => item.isActive).length;
+        return `${activeCount}/${data.length} Active`;
+      }
+    },
+    {
+      key: 'createdAt',
+      type: 'count' as const,
+      suffix: ' rows'
+    }
+  ]
+};
 
 export default function DataTablePage() {
   return (
@@ -21,25 +160,24 @@ export default function DataTablePage() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
-        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-300 dark:border-gray-600">
-                  <th className="text-left py-3 px-4 font-semibold">Name</th>
-                  <th className="text-left py-3 px-4 font-semibold">Email</th>
-                  <th className="text-left py-3 px-4 font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <td className="py-3 px-4">John Doe</td>
-                  <td className="py-3 px-4">john@example.com</td>
-                  <td className="py-3 px-4"><span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">Active</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+          <DataTable
+            columns={columns}
+            dataSource={sampleUsers}
+            summary={summaryConfig}
+            pagination={{
+              current: 1,
+              pageSize: 5,
+              pageSizeOptions: [5, 10, 20],
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: true
+            }}
+            onRow={(record) => ({
+              onClick: () => console.log('row clicked:', record),
+              className: 'hover:bg-base-200'
+            })}
+          />
         </div>
       </section>
 
@@ -51,16 +189,52 @@ export default function DataTablePage() {
 
 export default function App() {
   const columns = [
-    { key: 'name', label: 'Name' },
-    { key: 'email', label: 'Email' },
+    { key: 'name', title: 'Name', dataIndex: 'name', sortable: true },
+    { key: 'email', title: 'Email', dataIndex: 'email', filterable: true },
   ];
 
   const data = [
     { name: 'John', email: 'john@example.com' },
   ];
 
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      dataSource={data}
+      pagination={{
+        current: 1,
+        pageSize: 10,
+        showSizeChanger: true,
+      }}
+    />
+  );
 }`}
+          </pre>
+        </div>
+
+        <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto mt-6">
+          <pre className="text-gray-100 font-mono text-sm">
+{`const summary = {
+  show: true,
+  fixed: true,
+  columns: [
+    { key: 'name', type: 'custom', render: () => <strong>Total</strong> },
+    {
+      key: 'isActive',
+      type: 'custom',
+      render: (data) =>
+        data.filter((item) => item.isActive).length + '/' + data.length + ' Active'
+    },
+    { key: 'createdAt', type: 'count', suffix: ' rows' },
+  ],
+};
+
+<DataTable
+  columns={columns}
+  dataSource={data}
+  summary={summary}
+  pagination={{ current: 1, pageSize: 10 }}
+/>;`}
           </pre>
         </div>
       </section>
@@ -71,25 +245,25 @@ export default function App() {
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Sorting</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Click column headers to sort data ascending or descending.
+              Enable sorting per column with <code>sortable: true</code>.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Pagination</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Built-in pagination controls for large datasets.
+              Built-in page size switcher and quick jumper via <code>pagination</code> config.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Responsive</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Filtering</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Automatically adapts to screen size.
+              Per-column filtering via <code>filterable: true</code>.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Customizable</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Summary Row</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Full control over columns and styling.
+              Supports sum, avg, count and custom summary renderers.
             </p>
           </div>
         </div>
@@ -108,27 +282,33 @@ export default function App() {
             <tbody>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">columns</td>
-                <td className="py-3 px-4 font-mono">array</td>
+                <td className="py-3 px-4 font-mono">Column[]</td>
                 <td className="py-3 px-4 font-mono">-</td>
                 <td className="py-3 px-4">Column configuration</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">data</td>
-                <td className="py-3 px-4 font-mono">array</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">dataSource</td>
+                <td className="py-3 px-4 font-mono">Record&lt;string, unknown&gt;[]</td>
                 <td className="py-3 px-4 font-mono">-</td>
                 <td className="py-3 px-4">Table data</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">sortable</td>
-                <td className="py-3 px-4 font-mono">boolean</td>
-                <td className="py-3 px-4 font-mono">true</td>
-                <td className="py-3 px-4">Enable sorting</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">pagination</td>
+                <td className="py-3 px-4 font-mono">PaginationConfig | false</td>
+                <td className="py-3 px-4 font-mono">{`{ current: 1, pageSize: 10, ... }`}</td>
+                <td className="py-3 px-4">Pagination behavior configuration</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">summary</td>
+                <td className="py-3 px-4 font-mono">SummaryConfig</td>
+                <td className="py-3 px-4 font-mono">undefined</td>
+                <td className="py-3 px-4">Show summary row with sum/avg/count/custom</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">pagination</td>
-                <td className="py-3 px-4 font-mono">boolean</td>
-                <td className="py-3 px-4 font-mono">true</td>
-                <td className="py-3 px-4">Enable pagination</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">emptyText</td>
+                <td className="py-3 px-4 font-mono">string</td>
+                <td className="py-3 px-4 font-mono">暫無資料</td>
+                <td className="py-3 px-4">Text displayed when there is no data</td>
               </tr>
             </tbody>
           </table>
