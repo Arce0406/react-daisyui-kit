@@ -1,12 +1,8 @@
 'use client';
 import { cn } from "../../utils";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useId, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import './index.css';
-
-function random() {
-    return Math.random();
-}
 
 // 選擇框組件
 export interface SelectOption {
@@ -55,9 +51,7 @@ export default function Select({
     }[size];
     const errorClass = error ? 'select-error' : '';
 
-    const randomId = useMemo(() => {
-        return `select-${random().toString(36)}`;
-    }, []);
+    const randomId = useId();
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         console.log('Select value changed to:', e.target.value);
