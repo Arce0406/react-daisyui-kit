@@ -1,8 +1,12 @@
 'use client';
 
+import { LoadingOverlay, LoadingSkeleton } from '@featherstudio/react-daisyui-kit';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function LoadingPage() {
+  const [showOverlay, setShowOverlay] = useState(false);
+
   return (
     <div className="min-h-screen pb-16">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -13,16 +17,47 @@ export default function LoadingPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-3">Loading Component</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-3">Loading Components</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-          Loading spinner component for indicating async operations and data fetching.
+          Two loading components: <code>LoadingOverlay</code> for full-screen blocking states, and <code>LoadingSkeleton</code> for inline placeholder content.
         </p>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
-        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6 flex items-center justify-center min-h-40">
-          <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6 space-y-8">
+
+          {/* LoadingSkeleton */}
+          <div>
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
+              <code>LoadingSkeleton</code> — default height (5rem)
+            </p>
+            <LoadingSkeleton />
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
+              <code>LoadingSkeleton</code> — custom height (2rem)
+            </p>
+            <LoadingSkeleton height="2rem" />
+          </div>
+
+          {/* LoadingOverlay */}
+          <div>
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
+              <code>LoadingOverlay</code> — full-screen overlay (click button to preview)
+            </p>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setShowOverlay(true);
+                setTimeout(() => setShowOverlay(false), 2000);
+              }}
+            >
+              Show Overlay (2s)
+            </button>
+            {showOverlay && <LoadingOverlay />}
+          </div>
         </div>
       </section>
 
@@ -30,17 +65,14 @@ export default function LoadingPage() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import { Loading } from '@featherstudio/react-daisyui-kit';
+{`import { LoadingOverlay, LoadingSkeleton } from '@featherstudio/react-daisyui-kit';
 
-export default function App() {
-  return (
-    <>
-      <Loading size="sm" />
-      <Loading size="md" text="Loading..." />
-      <Loading size="lg" />
-    </>
-  );
-}`}
+// Skeleton placeholder — renders inline
+<LoadingSkeleton />
+<LoadingSkeleton height="2rem" />
+
+// Full-screen overlay with spinner — renders fixed over the whole page
+<LoadingOverlay size="lg" />`}
           </pre>
         </div>
       </section>
@@ -49,61 +81,60 @@ export default function App() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Features</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Multiple Sizes</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Full-screen Overlay</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Small, medium, and large loading spinners.
+              <code>LoadingOverlay</code> renders a fixed backdrop covering the entire viewport with a centered spinner.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Customizable Colors</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Spinner Size</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Change spinner color to match your design.
+              Control spinner size via the <code>size</code> prop using DaisyUI breakpoint values: xs / sm / md / lg / xl.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Optional Text</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Skeleton Placeholder</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Add loading text below the spinner.
+              <code>LoadingSkeleton</code> renders a full-width animated skeleton block for inline content placeholders.
             </p>
           </div>
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Full Page Overlay</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Configurable Height</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Show as full-page loading indicator.
+              Set <code>height</code> on <code>LoadingSkeleton</code> as any CSS value (e.g. <code>'3rem'</code>, <code>80</code>) to match your layout.
             </p>
           </div>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Props</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Props</h2>
+
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">LoadingOverlay</h3>
+        <div className="overflow-x-auto mb-8">
+          <table className="w-full text-sm">
+            <thead><tr className="border-b-2"><th className="text-left py-3 px-4 font-semibold">Prop</th><th className="text-left py-3 px-4 font-semibold">Type</th><th className="text-left py-3 px-4 font-semibold">Default</th><th className="text-left py-3 px-4 font-semibold">Description</th></tr></thead>
+            <tbody>
+              <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono">'xs' | 'sm' | 'md' | 'lg' | 'xl'</td>
+                <td className="py-3 px-4 font-mono">'lg'</td>
+                <td className="py-3 px-4">DaisyUI spinner size</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">LoadingSkeleton</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b-2"><th className="text-left py-3 px-4 font-semibold">Prop</th><th className="text-left py-3 px-4 font-semibold">Type</th><th className="text-left py-3 px-4 font-semibold">Default</th><th className="text-left py-3 px-4 font-semibold">Description</th></tr></thead>
             <tbody>
-              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
-                <td className="py-3 px-4 font-mono">string</td>
-                <td className="py-3 px-4 font-mono">'md'</td>
-                <td className="py-3 px-4">Spinner size</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">color</td>
-                <td className="py-3 px-4 font-mono">string</td>
-                <td className="py-3 px-4 font-mono">'blue'</td>
-                <td className="py-3 px-4">Spinner color</td>
-              </tr>
-              <tr className="border-b hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">text</td>
-                <td className="py-3 px-4 font-mono">string</td>
-                <td className="py-3 px-4 font-mono">-</td>
-                <td className="py-3 px-4">Loading text</td>
-              </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">fullPage</td>
-                <td className="py-3 px-4 font-mono">boolean</td>
-                <td className="py-3 px-4 font-mono">false</td>
-                <td className="py-3 px-4">Full page loader</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">height</td>
+                <td className="py-3 px-4 font-mono">number | string</td>
+                <td className="py-3 px-4 font-mono">'5rem'</td>
+                <td className="py-3 px-4">CSS height of the skeleton block</td>
               </tr>
             </tbody>
           </table>
