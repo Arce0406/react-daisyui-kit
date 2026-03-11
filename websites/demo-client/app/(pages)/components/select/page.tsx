@@ -1,5 +1,6 @@
 'use client';
 
+import { Select } from '@featherstudio/react-daisyui-kit';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -47,16 +48,17 @@ export default function SelectPage() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Choose an option
             </label>
-            <select
+            <Select
               value={value}
-              onChange={(e) => setValue(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-            >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-              <option value="option4">Option 4</option>
-            </select>
+              onChange={(nextValue) => setValue(String(nextValue ?? ''))}
+              placeholder="Please choose an option"
+              options={[
+                { value: 'option1', label: 'Option 1' },
+                { value: 'option2', label: 'Option 2' },
+                { value: 'option3', label: 'Option 3' },
+                { value: 'option4', label: 'Option 4' },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -75,7 +77,8 @@ export default function App() {
   return (
     <Select
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(nextValue) => setValue(String(nextValue ?? ''))}
+      placeholder="Please choose an option"
       options={[
         { value: 'opt1', label: 'Option 1' },
         { value: 'opt2', label: 'Option 2' },
@@ -141,21 +144,27 @@ export default function App() {
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">value</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | number</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | readonly string[] | number | undefined</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Selected value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler called with the selected value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">disabled</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">boolean</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">false</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Disable select</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Controls the DaisyUI select size</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">placeholder</td>
