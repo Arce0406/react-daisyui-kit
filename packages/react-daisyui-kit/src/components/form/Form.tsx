@@ -14,6 +14,8 @@ function Form(
   {
     children,
     initialValues = {},
+    locale = 'zh',
+    validateMessages,
     onFinish,
     onFinishFailed,
     onValuesChange,
@@ -27,6 +29,26 @@ function Form(
   const [values, setValues] = useState<FormValues>(stableInitialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const getDefaultRequiredMessage = useCallback((field: string) => {
+    const requiredMessage = validateMessages?.required;
+    if (typeof requiredMessage === 'function') {
+      return requiredMessage(field);
+    }
+    if (typeof requiredMessage === 'string') {
+      return requiredMessage
+        .replace('{field}', field)
+        .replace('{name}', field)
+        .replace('{label}', field);
+    }
+
+    const fallbackTemplates: Record<'zh' | 'en', string> = {
+      zh: '{field} 為必填項目',
+      en: '{field} is required',
+    };
+
+    return fallbackTemplates[locale].replace('{field}', field);
+  }, [locale, validateMessages]);
 
   // 儲存表單項目實例的引用
   const fieldInstancesRef = useRef<Map<string, FormItemInstance>>(new Map());
@@ -104,7 +126,7 @@ function Form(
         for (const rule of instance.rules) {
           // 必填驗證
           if (rule.required && (currentValue === undefined || currentValue === null || currentValue === '')) {
-            const message = rule.message || `${name} 為必填項目`;
+            const message = rule.message || getDefaultRequiredMessage(nameKey);
             setFieldError(name, message);
             return message;
           }
@@ -151,7 +173,7 @@ function Form(
     } catch {
       setFieldError(name, '驗證過程中發生錯誤');
     }
-  }, [setFieldError, values]);
+  }, [getDefaultRequiredMessage, setFieldError, values]);
 
   // 驗證所有字段
   const validateFields = useCallback(async (): Promise<FormValidateResult> => {
@@ -214,6 +236,7 @@ function Form(
     values,
     errors,
     touched,
+    getDefaultRequiredMessage,
     registerField,
     unregisterField,
     setFieldValue,

@@ -9,6 +9,7 @@ import { cn } from '../../utils';
 export default function FormItem({
     name,
     label,
+    requiredMessage,
     rules = [],
     children,
     className = '',
@@ -29,6 +30,7 @@ export default function FormItem({
         errors,
         touched,
         values: formValues,
+        getDefaultRequiredMessage,
     } = useFormContext();
 
     const [localError, setLocalError] = useState<string | string[] | undefined>();
@@ -37,12 +39,22 @@ export default function FormItem({
         return rules?.some(rule => rule.required) || required;
     }, [rules, required]);
 
+    const fieldDisplayName = useMemo(() => {
+        if (typeof label === 'string' && label.trim()) return label;
+        if (name) return pathToString(name);
+        return 'Field';
+    }, [label, name]);
+
+    const resolvedRequiredMessage = useMemo(() => {
+        return requiredMessage || getDefaultRequiredMessage(fieldDisplayName);
+    }, [fieldDisplayName, getDefaultRequiredMessage, requiredMessage]);
+
     // 合併 required 規則
     const mergedRules = useMemo((): ValidationRule[] => {
         return required
-            ? [{ required: true, message: `${label || name} 為必填項目` }, ...rules]
+            ? [{ required: true, message: resolvedRequiredMessage }, ...rules]
             : rules;
-    }, [required, rules, label, name]);
+    }, [required, rules, resolvedRequiredMessage]);
 
     // 獲取當前字段值的輔助函數
     const getCurrentValue = useCallback(() => {
@@ -55,7 +67,7 @@ export default function FormItem({
         for (const rule of mergedRules) {
             // 必填驗證
             if (rule.required && (currentValue === undefined || currentValue === null || currentValue === '')) {
-                const message = rule.message || `${label || name} 為必填項目`;
+                const message = rule.message || resolvedRequiredMessage;
                 return message;
             }
 
@@ -91,7 +103,7 @@ export default function FormItem({
         }
 
         return undefined;
-    }, [mergedRules, label, name, formValues]);
+    }, [mergedRules, label, name, formValues, resolvedRequiredMessage]);
 
     // 創建字段實例 - 使用 useMemo 穩定實例
     const fieldInstance = useMemo((): FormItemInstance => ({
@@ -136,7 +148,7 @@ export default function FormItem({
                 for (const rule of mergedRules) {
                     // 必填驗證
                     if (rule.required && (newValue === undefined || newValue === null || newValue === '')) {
-                        const message = rule.message || `${label || name} 為必填項目`;
+                        const message = rule.message || resolvedRequiredMessage;
                         setLocalError(message);
                         setFieldError(name, message);
                         return;
@@ -191,7 +203,7 @@ export default function FormItem({
 
             validateWithNewValue();
         }
-    }, [name, setFieldValue, setFieldError, validateTrigger, mergedRules, label, formValues]);
+    }, [name, setFieldValue, setFieldError, validateTrigger, mergedRules, label, formValues, resolvedRequiredMessage]);
 
     // 處理失焦事件
     const handleBlur = useCallback(() => {
