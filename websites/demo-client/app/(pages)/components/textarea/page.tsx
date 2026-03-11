@@ -1,8 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { TextArea } from '@featherstudio/react-daisyui-kit';
 
 export default function TextAreaPage() {
+  const [message, setMessage] = useState('');
+
   return (
     <div className="min-h-screen pb-16">
       {/* Breadcrumb */}
@@ -39,11 +43,13 @@ export default function TextAreaPage() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Message
             </label>
-            <textarea
+            <TextArea
               rows={4}
               placeholder="Enter your message here..."
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical"
+              value={message}
+              onChange={setMessage}
             />
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Current value: {message}</p>
           </div>
         </div>
       </section>
@@ -64,7 +70,7 @@ export default function App() {
       rows={5}
       placeholder="Enter your message..."
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={setValue}
     />
   );
 }`}
@@ -137,9 +143,9 @@ export default function App() {
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value: string) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler that receives current text value</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">placeholder</td>
