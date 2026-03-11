@@ -12,6 +12,12 @@ export interface FormValidateResult {
   errors: FormErrors;
 }
 
+export type FormLocale = 'zh' | 'en';
+
+export interface FormValidateMessages {
+  required?: string | ((field: string) => string);
+}
+
 // 驗證規則類型
 export interface ValidationRule {
   required?: boolean;
@@ -38,6 +44,7 @@ export interface FormContextType {
   values: FormValues;
   errors: FormErrors;
   touched: Record<string, boolean>;
+  getDefaultRequiredMessage: (field: string) => string;
   registerField: (name: string | (string | number)[], instance: FormItemInstance) => void;
   unregisterField: (name: string | (string | number)[]) => void;
   setFieldValue: (name: string | (string | number)[], value: unknown) => void;
@@ -51,6 +58,8 @@ export interface FormContextType {
 export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode;
   initialValues?: FormValues;
+  locale?: FormLocale;
+  validateMessages?: FormValidateMessages;
   onFinish?: (values: FormValues) => void | Promise<void>;
   onFinishFailed?: (errorInfo: { values: FormValues; errors: FormErrors }) => void;
   onValuesChange?: (changedValues: FormValues, allValues: FormValues) => void;
@@ -71,6 +80,7 @@ export interface FormRef {
 export interface FormItemProps {
   name?: string | (string | number)[];
   label?: ReactNode;
+  requiredMessage?: string;
   rules?: ValidationRule[];
   children: ReactNode;
   className?: string;
