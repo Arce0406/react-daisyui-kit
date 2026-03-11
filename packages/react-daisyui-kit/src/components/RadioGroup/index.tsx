@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+'use client';
+import { forwardRef, useState } from "react";
 
 // 單選按鈕組組件
 export interface RadioOption {
@@ -9,6 +10,7 @@ export interface RadioOption {
 
 export interface RadioGroupProps {
   value?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   onBlur?: () => void;
   error?: string | string[];
@@ -18,7 +20,11 @@ export interface RadioGroupProps {
   direction?: 'horizontal' | 'vertical';
 }
 
-const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ value = '', onChange, onBlur, error, options = [], name, size = 'md', direction = 'vertical', ...props }, ref) => {
+const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ value, defaultValue = '', onChange, onBlur, error, options = [], name, size = 'md', direction = 'vertical', ...props }, ref) => {
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   const sizeClass = {
     sm: 'radio-sm',
     md: '',
@@ -35,8 +41,14 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(({ value = '', on
             type="radio"
             name={name}
             value={option.value}
-            checked={value === option.value}
-            onChange={(e) => onChange?.(e.target.value)}
+            checked={currentValue === option.value}
+            onChange={(e) => {
+              const nextValue = e.target.value;
+              if (!isControlled) {
+                setInternalValue(nextValue);
+              }
+              onChange?.(nextValue);
+            }}
             onBlur={onBlur}
             disabled={option.disabled}
             className={`radio ${sizeClass}`.trim()}
