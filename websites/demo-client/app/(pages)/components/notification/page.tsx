@@ -1,8 +1,55 @@
 'use client';
 
 import Link from 'next/link';
+import {
+  Notification,
+  NotificationContainer,
+  NotificationProvider,
+} from '@featherstudio/react-daisyui-kit';
 
 export default function NotificationPage() {
+  const showSuccessNotification = () => {
+    Notification.success({
+      message: 'Operation completed successfully!',
+    });
+  };
+
+  const showErrorNotification = () => {
+    Notification.error({
+      title: 'Operation Failed',
+      message: 'Please check your network connection and try again.',
+    });
+  };
+
+  const showWarningNotification = () => {
+    Notification.warning({
+      title: 'Confirm Deletion',
+      message: 'This action cannot be undone. Are you sure you want to delete?',
+      actions: [
+        {
+          label: 'Confirm',
+          onClick: () => {
+            console.log('Item deleted');
+          },
+          className: 'btn-error',
+        },
+        {
+          label: 'Cancel',
+          onClick: () => {
+            console.log('Action canceled');
+          },
+        },
+      ],
+      duration: 0,
+    });
+  };
+
+  const showInfoNotification = () => {
+    Notification.info({
+      message: 'The system will undergo maintenance in 5 minutes.',
+    });
+  };
+
   return (
     <div className="min-h-screen pb-16">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -17,6 +64,29 @@ export default function NotificationPage() {
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
           Modal-based notification system with Ant Design-inspired API. Perfect for important messages requiring user attention.
         </p>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
+        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+          <NotificationProvider>
+            <div className="flex flex-wrap gap-3">
+              <button className="btn btn-success" onClick={showSuccessNotification}>
+                Show Success Notification
+              </button>
+              <button className="btn btn-error" onClick={showErrorNotification}>
+                Show Error Notification
+              </button>
+              <button className="btn btn-warning" onClick={showWarningNotification}>
+                Show Warning Notification (With Actions)
+              </button>
+              <button className="btn btn-info" onClick={showInfoNotification}>
+                Show Info Notification
+              </button>
+            </div>
+            <NotificationContainer />
+          </NotificationProvider>
+        </div>
       </section>
 
       {/* Usage */}
@@ -53,27 +123,27 @@ export default function RootLayout({ children }) {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">2. Basic Usage</h3>
             <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
               <pre className="text-gray-100 font-mono text-sm">
-{`import { notification } from '@featherstudio/react-daisyui-kit';
+{`import { Notification } from '@featherstudio/react-daisyui-kit';
 
 // Success notification
-notification.success({
-  message: '操作成功！'
+Notification.success({
+  message: 'Operation completed successfully!'
 });
 
 // Error notification
-notification.error({
-  title: '操作失敗',
-  message: '請檢查網路連線後重試'
+Notification.error({
+  title: 'Operation Failed',
+  message: 'Please check your network connection and try again.'
 });
 
 // Warning notification
-notification.warning({
-  message: '您有未儲存的變更'
+Notification.warning({
+  message: 'You have unsaved changes.'
 });
 
 // Info notification
-notification.info({
-  message: '系統將於 5 分鐘後維護'
+Notification.info({
+  message: 'The system will undergo maintenance in 5 minutes.'
 });`}
               </pre>
             </div>
@@ -83,22 +153,22 @@ notification.info({
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">3. With Action Buttons</h3>
             <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
               <pre className="text-gray-100 font-mono text-sm">
-{`notification.warning({
-  title: '確認刪除',
-  message: '此操作無法復原，確定要刪除嗎？',
+{`Notification.warning({
+  title: 'Confirm Deletion',
+  message: 'This action cannot be undone. Are you sure you want to delete?',
   actions: [
     {
-      label: '確認',
+      label: 'Confirm',
       onClick: () => {
         // Delete logic here
-        notification.success({ message: '已刪除' });
+        Notification.success({ message: 'Deleted successfully.' });
       },
       className: 'btn-error'
     },
     {
-      label: '取消',
+      label: 'Cancel',
       onClick: () => {
-        notification.info({ message: '已取消' });
+        Notification.info({ message: 'Action canceled.' });
       }
     }
   ],
