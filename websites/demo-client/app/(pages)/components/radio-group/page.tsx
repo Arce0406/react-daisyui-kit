@@ -1,5 +1,6 @@
 'use client';
 
+import { RadioGroup } from '@featherstudio/react-daisyui-kit';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -38,19 +39,18 @@ export default function RadioGroupPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-          <div className="space-y-3">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="option" value="option1" checked={selected === 'option1'} onChange={(e) => setSelected(e.target.value)} className="w-4 h-4 cursor-pointer" />
-              <span className="text-gray-700 dark:text-gray-300">Option 1</span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="option" value="option2" checked={selected === 'option2'} onChange={(e) => setSelected(e.target.value)} className="w-4 h-4 cursor-pointer" />
-              <span className="text-gray-700 dark:text-gray-300">Option 2</span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="option" value="option3" checked={selected === 'option3'} onChange={(e) => setSelected(e.target.value)} className="w-4 h-4 cursor-pointer" />
-              <span className="text-gray-700 dark:text-gray-300">Option 3</span>
-            </label>
+          <div className="space-y-4">
+            <RadioGroup
+              value={selected}
+              onChange={setSelected}
+              name="demo-radio-group"
+              options={[
+                { value: 'option1', label: 'Option 1' },
+                { value: 'option2', label: 'Option 2' },
+                { value: 'option3', label: 'Option 3 (disabled)', disabled: true },
+              ]}
+            />
+            <p className="text-sm text-gray-600 dark:text-gray-400">Current value: {selected}</p>
           </div>
         </div>
       </section>
@@ -64,15 +64,18 @@ export default function RadioGroupPage() {
 import { useState } from 'react';
 
 export default function App() {
-  const [selected, setSelected] = useState('opt1');
+  const [selected, setSelected] = useState('option1');
 
   return (
     <RadioGroup
       value={selected}
       onChange={setSelected}
+      name="plan"
+      direction="vertical"
       options={[
-        { value: 'opt1', label: 'Option 1' },
-        { value: 'opt2', label: 'Option 2' },
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+        { value: 'option3', label: 'Option 3', disabled: true },
       ]}
     />
   );
@@ -121,26 +124,50 @@ export default function App() {
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">value</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">''</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Selected value</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onChange</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">function</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">(value: string) =&gt; void</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
                 <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Change handler</td>
               </tr>
               <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
                 <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">options</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">array</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">Array&lt;{`{ label, value, disabled? }`}&gt;</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">[]</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Radio options list</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">name</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string</td>
                 <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Radio options</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Native radio group name attribute</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">size</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Radio input size preset</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">direction</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'horizontal' | 'vertical'</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">'vertical'</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Layout direction of radio options</td>
+              </tr>
+              <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">onBlur</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">() =&gt; void</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Blur callback for validation flows</td>
               </tr>
               <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">disabled</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">boolean</td>
-                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">false</td>
-                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Disable group</td>
+                <td className="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">error</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">string | string[]</td>
+                <td className="py-3 px-4 font-mono text-gray-600 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-400">Error state payload for form integration</td>
               </tr>
             </tbody>
           </table>
