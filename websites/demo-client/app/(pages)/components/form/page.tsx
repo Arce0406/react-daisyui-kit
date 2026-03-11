@@ -1,26 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { Form, Input, NumberInput, Select, TextArea, Checkbox, RadioGroup } from '@featherstudio/react-daisyui-kit';
+import type { FormRef, FormValues } from '@featherstudio/react-daisyui-kit';
 
 export default function FormPage() {
-  const [formResult, setFormResult] = useState<any>(null);
+  const formRef = useRef<FormRef>(null);
+  const [formResult, setFormResult] = useState<FormValues | null>(null);
   const [showResult, setShowResult] = useState(false);
 
-  const handleFormSubmit = () => {
-    // Simulated form submission
-    const mockData = {
-      username: 'john_doe',
-      email: 'john@example.com',
-      age: 25,
-      gender: 'male',
-      country: 'tw',
-      skills: ['javascript', 'typescript'],
-      newsletter: true,
-      bio: 'Full stack developer...',
-      experience: 3
-    };
-    setFormResult(mockData);
+  const handleFormSubmit = (values: FormValues) => {
+    setFormResult(values);
     setShowResult(true);
   };
 
@@ -44,147 +35,88 @@ export default function FormPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
         <div className="max-w-2xl bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-          <form onSubmit={(e) => { e.preventDefault(); handleFormSubmit(); }} className="space-y-4">
-            {/* Text Input */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Username <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="text" 
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white"
-                placeholder="Enter username"
-                required
+          <Form
+            ref={formRef}
+            onFinish={handleFormSubmit}
+            initialValues={{ gender: 'male', age: 18, newsletter: false }}
+          >
+            <Form.Item
+              name="username"
+              label="Username"
+              required
+              rules={[
+                { min: 3, message: 'Min 3 characters' },
+                { max: 20, message: 'Max 20 characters' },
+              ]}
+            >
+              <Input placeholder="Enter username" />
+            </Form.Item>
+
+            <Form.Item
+              name="email"
+              label="Email"
+              required
+              rules={[
+                {
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Invalid email format',
+                },
+              ]}
+            >
+              <Input type="email" placeholder="your.email@example.com" />
+            </Form.Item>
+
+            <Form.Item name="age" label="Age" required>
+              <NumberInput min={1} max={120} />
+            </Form.Item>
+
+            <Form.Item name="gender" label="Gender" required>
+              <RadioGroup
+                options={[
+                  { label: 'Male', value: 'male' },
+                  { label: 'Female', value: 'female' },
+                  { label: 'Other', value: 'other' },
+                ]}
+                direction="horizontal"
               />
-            </div>
+            </Form.Item>
 
-            {/* Email Input */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Email <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="email" 
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white"
-                placeholder="your.email@example.com"
-                required
+            <Form.Item name="country" label="Country" required>
+              <Select
+                placeholder="Select country..."
+                options={[
+                  { label: 'Taiwan', value: 'tw' },
+                  { label: 'United States', value: 'us' },
+                  { label: 'Japan', value: 'jp' },
+                  { label: 'China', value: 'cn' },
+                ]}
               />
-            </div>
+            </Form.Item>
 
-            {/* Number Input */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Age <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="number" 
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white"
-                placeholder="18"
-                min="1"
-                max="120"
-                required
-              />
-            </div>
+            <Form.Item name="bio" label="Bio">
+              <TextArea placeholder="Tell us about yourself..." rows={3} />
+            </Form.Item>
 
-            {/* Radio Group */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Gender <span className="text-red-500">*</span>
-              </label>
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="gender" value="male" className="w-4 h-4" defaultChecked />
-                  <span className="text-gray-700 dark:text-gray-300">Male</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="gender" value="female" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">Female</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="gender" value="other" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">Other</span>
-                </label>
-              </div>
-            </div>
+            <Form.Item name="newsletter">
+              <Checkbox label="Subscribe to newsletter" />
+            </Form.Item>
 
-            {/* Select */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Country <span className="text-red-500">*</span>
-              </label>
-              <select 
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white"
-                required
-              >
-                <option value="">Select country...</option>
-                <option value="tw">Taiwan</option>
-                <option value="us">United States</option>
-                <option value="jp">Japan</option>
-                <option value="cn">China</option>
-              </select>
-            </div>
-
-            {/* Multiple Checkboxes */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Skills
-              </label>
-              <div className="space-y-2">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" value="javascript" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">JavaScript</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" value="typescript" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">TypeScript</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" value="react" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">React</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" value="nodejs" className="w-4 h-4" />
-                  <span className="text-gray-700 dark:text-gray-300">Node.js</span>
-                </label>
-              </div>
-            </div>
-
-            {/* TextArea */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Bio
-              </label>
-              <textarea 
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white"
-                placeholder="Tell us about yourself..."
-                rows={3}
-              />
-            </div>
-
-            {/* Single Checkbox */}
-            <div>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4" />
-                <span className="text-sm text-gray-700 dark:text-gray-300">Subscribe to newsletter</span>
-              </label>
-            </div>
-
-            {/* Submit Button */}
             <div className="flex gap-3 pt-4">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                onClick={() => formRef.current?.reset()}
               >
                 Reset
               </button>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Submit
               </button>
             </div>
-          </form>
+          </Form>
 
           {/* Result Display */}
           {showResult && (
@@ -211,7 +143,7 @@ export default function FormPage() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage</h2>
         <div className="bg-gray-900 dark:bg-black p-6 rounded-lg overflow-x-auto">
           <pre className="text-gray-100 font-mono text-sm">
-{`import { Form, Input, Select, Checkbox, RadioGroup } 
+{`import { Form, Input, NumberInput, Select, TextArea, Checkbox, RadioGroup } 
   from '@featherstudio/react-daisyui-kit';
 
 export default function MyForm() {
