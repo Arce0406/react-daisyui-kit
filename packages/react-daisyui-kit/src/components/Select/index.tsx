@@ -1,6 +1,6 @@
 'use client';
 import { cn } from "../../utils";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import './index.css';
 
@@ -34,6 +34,7 @@ export interface SelectProps<T = string> extends Omit<React.SelectHTMLAttributes
 export default function Select({
     label,
     value,
+    defaultValue,
     onChange,
     error,
     options = [],
@@ -43,6 +44,10 @@ export default function Select({
     ...props
 }: SelectProps) {
     console.log('Select rendered with value:', value);
+    const [internalValue, setInternalValue] = useState<SelectValueType>(() => defaultValue ?? '');
+    const isControlled = value !== undefined;
+    const currentValue = isControlled ? value : internalValue;
+
     const sizeClass = {
         sm: 'select-sm',
         md: '',
@@ -56,13 +61,19 @@ export default function Select({
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         console.log('Select value changed to:', e.target.value);
+        if (!isControlled) {
+            setInternalValue(e.target.value);
+        }
         onChange?.(e.target.value);
-    }, [onChange]);
+    }, [isControlled, onChange]);
 
     const handleClear = useCallback(() => {
         console.log('Clear button clicked');
+        if (!isControlled) {
+            setInternalValue('');
+        }
         onChange?.('');
-    }, [onChange]);
+    }, [isControlled, onChange]);
 
     return (
         <div className="select-wrapper">
@@ -74,7 +85,7 @@ export default function Select({
                     errorClass,
                     className
                 )}
-                value={value}
+                value={currentValue}
                 onChange={handleChange}
                 {...props}
             >
@@ -89,7 +100,7 @@ export default function Select({
             </select>
             <button
                 type="button"
-                className={cn("clear-button", (value !== "") ? 'show' : '')}
+                className={cn("clear-button", (currentValue !== "") ? 'show' : '')}
                 onClick={handleClear}
                 aria-label="清除選擇"
             >
