@@ -1,8 +1,41 @@
 'use client';
 
 import Link from 'next/link';
+import {
+  toast,
+  ToastContainer,
+  ToastProvider,
+} from '@featherstudio/react-daisyui-kit';
 
 export default function ToastPage() {
+  const showSuccessToast = () => {
+    toast.success('Operation completed successfully!');
+  };
+
+  const showErrorToast = () => {
+    toast.error('Something went wrong. Please try again.');
+  };
+
+  const showWarningToast = () => {
+    toast.warning('Please save your changes before leaving this page.');
+  };
+
+  const showInfoToast = () => {
+    toast.info('New update available. Refresh to get the latest version.');
+  };
+
+  const showCustomToast = () => {
+    toast.show({
+      message: 'Custom top-center toast with callback.',
+      type: 'info',
+      duration: 3000,
+      position: 'top-center',
+      onClose: () => {
+        console.log('Custom toast closed');
+      },
+    });
+  };
+
   return (
     <div className="min-h-screen pb-16">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -17,6 +50,32 @@ export default function ToastPage() {
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
           Lightweight, non-intrusive notifications that appear briefly and auto-dismiss. Perfect for feedback messages.
         </p>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Live Preview</h2>
+        <div className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+          <ToastProvider>
+            <div className="flex flex-wrap gap-3">
+              <button className="btn btn-success" onClick={showSuccessToast}>
+                Show Success Toast
+              </button>
+              <button className="btn btn-error" onClick={showErrorToast}>
+                Show Error Toast
+              </button>
+              <button className="btn btn-warning" onClick={showWarningToast}>
+                Show Warning Toast
+              </button>
+              <button className="btn btn-info" onClick={showInfoToast}>
+                Show Info Toast
+              </button>
+              <button className="btn" onClick={showCustomToast}>
+                Show Custom Toast
+              </button>
+            </div>
+            <ToastContainer />
+          </ToastProvider>
+        </div>
       </section>
 
       {/* Usage */}
@@ -77,7 +136,7 @@ toast.info('New update available');`}
 {`// Custom duration (milliseconds)
 toast.success('Saved!', 2000);
 
-// Custom position
+// Custom toast config
 toast.show({
   message: 'Custom toast',
   type: 'info',
