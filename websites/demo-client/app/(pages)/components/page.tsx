@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface Component {
   name: string;
@@ -131,6 +134,14 @@ const components: Component[] = [
 ];
 
 export default function ComponentsPage() {
+  const [search, setSearch] = useState('');
+
+  const filtered = components.filter(
+    (c) =>
+      c.name.toLowerCase().includes(search.toLowerCase()) ||
+      c.description.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <div className="min-h-screen pb-16">
       {/* Header */}
@@ -144,10 +155,46 @@ export default function ComponentsPage() {
         </p>
       </section>
 
+      {/* Search */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="relative max-w-md">
+          <span className="absolute inset-y-0 left-3 flex items-center text-gray-400 pointer-events-none">
+            🔍
+          </span>
+          <input
+            type="text"
+            placeholder="搜尋元件名稱或描述..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+          />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+              aria-label="清除搜尋"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+        {search && (
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            找到 {filtered.length} 個結果
+          </p>
+        )}
+      </section>
+
       {/* Components Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {filtered.length === 0 ? (
+          <div className="text-center py-16 text-gray-500 dark:text-gray-400">
+            <p className="text-5xl mb-4">🔎</p>
+            <p className="text-lg">找不到符合「{search}」的元件</p>
+          </div>
+        ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {components.map((component) => (
+          {filtered.map((component) => (
             <Link
               key={component.name}
               href={`/components/${component.slug}`}
@@ -172,6 +219,7 @@ export default function ComponentsPage() {
             </Link>
           ))}
         </div>
+        )}
       </section>
 
       {/* CTA Section */}
