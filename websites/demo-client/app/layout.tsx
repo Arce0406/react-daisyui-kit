@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-linear-to-b from-white to-gray-50 dark:from-black dark:to-gray-900`}
       >
         <ThemeProvider>
           <nav className="sticky top-0 z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 shadow-sm">
@@ -45,6 +45,9 @@ export default function RootLayout({
                   </Link>
                   <Link href="/components" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-medium">
                     Components
+                  </Link>
+                  <Link href="/templates" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-medium">
+                    Templates
                   </Link>
                   <ThemeSwitcher />
                 </div>
